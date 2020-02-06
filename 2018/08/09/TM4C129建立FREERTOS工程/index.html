@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    
+    <title>TM4C129建立FREERTOS工程 | Leixx</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="work,think">
+    
+    <meta name="description" content="写下这篇教程的原因主要是自己当初学习TM4C129使用FREERTOS操作系统时，发现TI只提供了TM4C123G的移植工程而没有提供TM4C129的，并且网络上教程比较少，而且有很多的教程存在问题，因此把自己当初建立    FREERTOS操作系统的过程写成一个教程，供大家参考。 FREERTOS操作系统介绍FREERTOS是免费的、自由的、不受约束的操作系统。操作系统允许多个任务同时运行，这">
+<meta name="keywords" content="work,think">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TM4C129建立FREERTOS工程">
+<meta property="og:url" content="http://yoursite.com/2018/08/09/TM4C129建立FREERTOS工程/index.html">
+<meta property="og:site_name" content="Leixx">
+<meta property="og:description" content="写下这篇教程的原因主要是自己当初学习TM4C129使用FREERTOS操作系统时，发现TI只提供了TM4C123G的移植工程而没有提供TM4C129的，并且网络上教程比较少，而且有很多的教程存在问题，因此把自己当初建立    FREERTOS操作系统的过程写成一个教程，供大家参考。 FREERTOS操作系统介绍FREERTOS是免费的、自由的、不受约束的操作系统。操作系统允许多个任务同时运行，这">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2018/08/09/TM4C129建立FREERTOS工程/1.jpg">
+<meta property="og:updated_time" content="2018-08-09T07:48:43.636Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="TM4C129建立FREERTOS工程">
+<meta name="twitter:description" content="写下这篇教程的原因主要是自己当初学习TM4C129使用FREERTOS操作系统时，发现TI只提供了TM4C123G的移植工程而没有提供TM4C129的，并且网络上教程比较少，而且有很多的教程存在问题，因此把自己当初建立    FREERTOS操作系统的过程写成一个教程，供大家参考。 FREERTOS操作系统介绍FREERTOS是免费的、自由的、不受约束的操作系统。操作系统允许多个任务同时运行，这">
+<meta name="twitter:image" content="http://yoursite.com/2018/08/09/TM4C129建立FREERTOS工程/1.jpg">
+    
+
+    
+
+    
+        <link rel="icon" href="/css/images/favicon.ico">
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.0.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+
+
+</head>
+</html>
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/">主页</a>
+                                </li>
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/categories/work">工作</a>
+                                </li>
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/categories/think">思考</a>
+                                </li>
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/categories/life">生活</a>
+                                </li>
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/categories/tag">标签</a>
+                                </li>
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/about/index.html">关于</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/work/">work</a>
+    </h1>
+</div>
+                        <div class="main-body-content">
+                            <article id="post-TM4C129建立FREERTOS工程" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        TM4C129建立FREERTOS工程
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2018/08/09/TM4C129建立FREERTOS工程/" class="article-date">
+            <time datetime="2018-08-09T06:18:42.000Z" itemprop="datePublished">2018-08-09</time>
+        </a>
+    </div>
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/think/">think</a>, <a class="tag-link" href="/tags/work/">work</a>
+    </div>
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p><img src="/2018/08/09/TM4C129建立FREERTOS工程/1.jpg" alt></p>
+<p><strong>写下这篇教程的原因主要是自己当初学习TM4C129使用FREERTOS操作系统时，发现TI只提供了TM4C123G的移植工程而没有提供TM4C129的，并且网络上教程比较少，而且有很多的教程存在问题，因此把自己当初建立    FREERTOS操作系统的过程写成一个教程，供大家参考。</strong></p>
+<h1><span id="freertos操作系统介绍">FREERTOS操作系统介绍</span></h1><p>FREERTOS是免费的、自由的、不受约束的操作系统。<br>操作系统允许多个任务同时运行，这个叫做多任务，实际上，一个处理核心在某一个时刻只能运行一个任务，操作系统中任务调度器的责任就是决定在某一个时刻究竟运行哪个任务，任务调度在各个任务之间的切换非常快，这就给人们造成了同一个时刻有多个任务同时运行的错觉。</p>
+<h1><span id="操作系统源码下载">操作系统源码下载</span></h1><p>进入FREERTOS<a href="https://www.freertos.org/" target="_blank" rel="noopener">官网</a>下载源码<br><img src="/2018/08/09/TM4C129建立FREERTOS工程/2.png" alt><br>下载得到一个.exe文件，安装后实际上是一个文件夹，里面存放着FREERTOS的源码及一些相关的移植好的工程。<br><img src="/2018/08/09/TM4C129建立FREERTOS工程/3.png" alt><br>点开FREERTOS中的Source文件夹就是我们的FREERTOS源码了。<br><img src="/2018/08/09/TM4C129建立FREERTOS工程/4.png" alt></p>
+<h1><span id="freertos移植">FREERTOS移植</span></h1><h2><span id="一-添加源码">一、添加源码</span></h2><p>1.首先需要新建一个空白工程，详见<a href="https://blog.csdn.net/qq_36854651/article/details/81507659" target="_blank" rel="noopener">TM4129新建工程</a><br>2.在工程中新建一个FREERTOS文件夹<br><img src="/2018/08/09/TM4C129建立FREERTOS工程/5.png" alt><br>3.将FREERTOS源码移植到该文件夹中<br><img src="/2018/08/09/TM4C129建立FREERTOS工程/6.png" alt><br>4.注意！portable文件夹只需要留下keil,MemMang和RVDS三个文件夹<br><img src="/2018/08/09/TM4C129建立FREERTOS工程/7.png" alt></p>
+<h2><span id="二-在工程中添加文件">二、在工程中添加文件</span></h2><p>1.打开新建好的工程，新建分组FREERTOS_CORE和FREERTOS_PORTABLE，然后向这两个分组中添加文件<br><img src="/2018/08/09/TM4C129建立FREERTOS工程/8.png" alt><br>2.注意！这里heap_4.c是第四种内存管理办法，一共有5中内存管理办法，原理不同，各有利弊。</p>
+<h2><span id="三-添加相应的头文件路径">三、添加相应的头文件路径</span></h2><p>1.添加完文件后，还要添加其源码的头文件路径<br><img src="/2018/08/09/TM4C129建立FREERTOS工程/9.png" alt><br>2.添加FreeRTOSConfig.h文件<br>在TM4123G提供的FREERTOS例程中可以找到该文件，我这里也可以提供一个<a href="https://pan.baidu.com/s/1V_v9-M093p43e1vujCzv9g" target="_blank" rel="noopener">链接</a><br>3.FreeRTOS里面有许多定义，包括系统时钟，滴答时钟等等，更多的详细说明可以参考原子资料FREERTOS开发手册<br>4.注意！开发手册里面提到了关于钩子函数编译错误的问题，我在实际开发中也遇到了此问题，文中提到了解决办法，请读者有机会一定要读一读这个开发手册，虽然此开发是针对STM32，但也只是在建立工程时有所区别，后面的学习都可以跟着此开发手册来。</p>
+<h2><span id="四-修改startups文件">四、修改Startup.s文件</span></h2><p><strong>Startup.s文件是系统的启动文件，主要包括堆和栈的初始化配置、中断向量表的配置以及将程序引导到main( )函数等。Startup.s主要完成三个工作：栈和堆的初始化、定位中断向量表、调用Reset Handler</strong><br>有关Startup.s文件的介绍，推荐看下这篇<a href="https://blog.csdn.net/xiaoluoshan/article/details/58681347" target="_blank" rel="noopener">博客</a><br>我们需要把文件修改为如下格式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br></pre></td><td class="code"><pre><span class="line">; &lt;&lt;&lt; Use Configuration Wizard in Context Menu &gt;&gt;&gt;</span><br><span class="line">;******************************************************************************</span><br><span class="line">;</span><br><span class="line">; startup_rvmdk.S - Startup code for use with Keil&apos;s uVision.</span><br><span class="line">;</span><br><span class="line">; Copyright (c) 2013-2017 Texas Instruments Incorporated.  All rights reserved.</span><br><span class="line">; Software License Agreement</span><br><span class="line">; </span><br><span class="line">; Texas Instruments (TI) is supplying this software for use solely and</span><br><span class="line">; exclusively on TI&apos;s microcontroller products. The software is owned by</span><br><span class="line">; TI and/or its suppliers, and is protected under applicable copyright</span><br><span class="line">; laws. You may not combine this software with &quot;viral&quot; open-source</span><br><span class="line">; software in order to form a larger program.</span><br><span class="line">; </span><br><span class="line">; THIS SOFTWARE IS PROVIDED &quot;AS IS&quot; AND WITH ALL FAULTS.</span><br><span class="line">; NO WARRANTIES, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING, BUT</span><br><span class="line">; NOT LIMITED TO, IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR</span><br><span class="line">; A PARTICULAR PURPOSE APPLY TO THIS SOFTWARE. TI SHALL NOT, UNDER ANY</span><br><span class="line">; CIRCUMSTANCES, BE LIABLE FOR SPECIAL, INCIDENTAL, OR CONSEQUENTIAL</span><br><span class="line">; DAMAGES, FOR ANY REASON WHATSOEVER.</span><br><span class="line">; </span><br><span class="line">; This is part of revision 2.1.4.178 of the EK-TM4C1294XL Firmware Package.</span><br><span class="line">;</span><br><span class="line">;******************************************************************************</span><br><span class="line"></span><br><span class="line">;******************************************************************************</span><br><span class="line">;</span><br><span class="line">; &lt;o&gt; Stack Size (in Bytes) &lt;0x0-0xFFFFFFFF:8&gt;</span><br><span class="line">;</span><br><span class="line">;******************************************************************************</span><br><span class="line">Stack   EQU     0x00000200</span><br><span class="line"></span><br><span class="line">;******************************************************************************</span><br><span class="line">;</span><br><span class="line">; &lt;o&gt; Heap Size (in Bytes) &lt;0x0-0xFFFFFFFF:8&gt;</span><br><span class="line">;</span><br><span class="line">;******************************************************************************</span><br><span class="line">Heap    EQU     0x00000000</span><br><span class="line"></span><br><span class="line">;******************************************************************************</span><br><span class="line">;</span><br><span class="line">; Allocate space for the stack.</span><br><span class="line">;</span><br><span class="line">;******************************************************************************</span><br><span class="line">        AREA    STACK, NOINIT, READWRITE, ALIGN=3</span><br><span class="line">StackMem</span><br><span class="line">        SPACE   Stack</span><br><span class="line">__initial_sp</span><br><span class="line"></span><br><span class="line">;******************************************************************************</span><br><span class="line">;</span><br><span class="line">; Allocate space for the heap.</span><br><span class="line">;</span><br><span class="line">;******************************************************************************</span><br><span class="line">        AREA    HEAP, NOINIT, READWRITE, ALIGN=3</span><br><span class="line">__heap_base</span><br><span class="line">HeapMem</span><br><span class="line">        SPACE   Heap</span><br><span class="line">__heap_limit</span><br><span class="line"></span><br><span class="line">;******************************************************************************</span><br><span class="line">;</span><br><span class="line">; Indicate that the code in this file preserves 8-byte alignment of the stack.</span><br><span class="line">;</span><br><span class="line">;******************************************************************************</span><br><span class="line">        PRESERVE8</span><br><span class="line"></span><br><span class="line">;******************************************************************************</span><br><span class="line">;</span><br><span class="line">; Place code into the reset code section.</span><br><span class="line">;</span><br><span class="line">;******************************************************************************</span><br><span class="line">        AREA    RESET, CODE, READONLY</span><br><span class="line">        THUMB</span><br><span class="line"></span><br><span class="line">;******************************************************************************</span><br><span class="line">;</span><br><span class="line">; External declarations for the interrupt handlers used by the application.</span><br><span class="line">;</span><br><span class="line">;******************************************************************************</span><br><span class="line">        EXTERN  xPortPendSVHandler</span><br><span class="line">        EXTERN  vPortSVCHandler</span><br><span class="line">        EXTERN  xPortSysTickHandler</span><br><span class="line">;******************************************************************************</span><br><span class="line">;</span><br><span class="line">; The vector table.</span><br><span class="line">;</span><br><span class="line">;******************************************************************************</span><br><span class="line">        EXPORT  __Vectors</span><br><span class="line">__Vectors</span><br><span class="line">        DCD     StackMem + Stack            ; Top of Stack</span><br><span class="line">        DCD     Reset_Handler               ; Reset Handler</span><br><span class="line">        DCD     NmiSR                       ; NMI Handler</span><br><span class="line">        DCD     FaultISR                    ; Hard Fault Handler</span><br><span class="line">        DCD     IntDefaultHandler           ; The MPU fault handler</span><br><span class="line">        DCD     IntDefaultHandler           ; The bus fault handler</span><br><span class="line">        DCD     IntDefaultHandler           ; The usage fault handler</span><br><span class="line">        DCD     0                           ; Reserved</span><br><span class="line">        DCD     0                           ; Reserved</span><br><span class="line">        DCD     0                           ; Reserved</span><br><span class="line">        DCD     0                           ; Reserved</span><br><span class="line">        DCD     vPortSVCHandler             ; SVCall handler</span><br><span class="line">        DCD     IntDefaultHandler           ; Debug monitor handler</span><br><span class="line">        DCD     0                           ; Reserved</span><br><span class="line">        DCD     xPortPendSVHandler          ; The PendSV handler</span><br><span class="line">        DCD     xPortSysTickHandler         ; The SysTick handler</span><br><span class="line">        DCD     IntDefaultHandler           ; GPIO Port A</span><br><span class="line">        DCD     IntDefaultHandler           ; GPIO Port B</span><br><span class="line">        DCD     IntDefaultHandler           ; GPIO Port C</span><br><span class="line">        DCD     IntDefaultHandler           ; GPIO Port D</span><br><span class="line">        DCD     IntDefaultHandler           ; GPIO Port E</span><br><span class="line">        DCD     IntDefaultHandler           ; UART0 Rx and Tx</span><br><span class="line">        DCD     IntDefaultHandler           ; UART1 Rx and Tx</span><br><span class="line">        DCD     IntDefaultHandler           ; SSI0 Rx and Tx</span><br><span class="line">        DCD     IntDefaultHandler           ; I2C0 Master and Slave</span><br><span class="line">        DCD     IntDefaultHandler           ; PWM Fault</span><br><span class="line">        DCD     IntDefaultHandler           ; PWM Generator 0</span><br><span class="line">        DCD     IntDefaultHandler           ; PWM Generator 1</span><br><span class="line">        DCD     IntDefaultHandler           ; PWM Generator 2</span><br><span class="line">        DCD     IntDefaultHandler           ; Quadrature Encoder 0</span><br><span class="line">        DCD     IntDefaultHandler           ; ADC Sequence 0</span><br><span class="line">        DCD     IntDefaultHandler           ; ADC Sequence 1</span><br><span class="line">        DCD     IntDefaultHandler           ; ADC Sequence 2</span><br><span class="line">        DCD     IntDefaultHandler           ; ADC Sequence 3</span><br><span class="line">        DCD     IntDefaultHandler           ; Watchdog timer</span><br><span class="line">        DCD     IntDefaultHandler           ; Timer 0 subtimer A</span><br><span class="line">        DCD     IntDefaultHandler           ; Timer 0 subtimer B</span><br><span class="line">        DCD     IntDefaultHandler           ; Timer 1 subtimer A</span><br><span class="line">        DCD     IntDefaultHandler           ; Timer 1 subtimer B</span><br><span class="line">        DCD     IntDefaultHandler           ; Timer 2 subtimer A</span><br><span class="line">        DCD     IntDefaultHandler           ; Timer 2 subtimer B</span><br><span class="line">        DCD     IntDefaultHandler           ; Analog Comparator 0</span><br><span class="line">        DCD     IntDefaultHandler           ; Analog Comparator 1</span><br><span class="line">        DCD     IntDefaultHandler           ; Analog Comparator 2</span><br><span class="line">        DCD     IntDefaultHandler           ; System Control (PLL, OSC, BO)</span><br><span class="line">        DCD     IntDefaultHandler           ; FLASH Control</span><br><span class="line">        DCD     IntDefaultHandler           ; GPIO Port F</span><br><span class="line">        DCD     IntDefaultHandler           ; GPIO Port G</span><br><span class="line">        DCD     IntDefaultHandler           ; GPIO Port H</span><br><span class="line">        DCD     IntDefaultHandler           ; UART2 Rx and Tx</span><br><span class="line">        DCD     IntDefaultHandler           ; SSI1 Rx and Tx</span><br><span class="line">        DCD     IntDefaultHandler           ; Timer 3 subtimer A</span><br><span class="line">        DCD     IntDefaultHandler           ; Timer 3 subtimer B</span><br><span class="line">        DCD     IntDefaultHandler           ; I2C1 Master and Slave</span><br><span class="line">        DCD     IntDefaultHandler           ; Quadrature Encoder 1</span><br><span class="line">        DCD     IntDefaultHandler           ; CAN0</span><br><span class="line">        DCD     IntDefaultHandler           ; CAN1</span><br><span class="line">        DCD     0                           ; Reserved</span><br><span class="line">        DCD     0                           ; Reserved</span><br><span class="line">        DCD     IntDefaultHandler           ; Hibernate</span><br><span class="line">        DCD     IntDefaultHandler           ; USB0</span><br><span class="line">        DCD     IntDefaultHandler           ; PWM Generator 3</span><br><span class="line">        DCD     IntDefaultHandler           ; uDMA Software Transfer</span><br><span class="line">        DCD     IntDefaultHandler           ; uDMA Error</span><br><span class="line">        DCD     IntDefaultHandler           ; ADC1 Sequence 0</span><br><span class="line">        DCD     IntDefaultHandler           ; ADC1 Sequence 1</span><br><span class="line">        DCD     IntDefaultHandler           ; ADC1 Sequence 2</span><br><span class="line">        DCD     IntDefaultHandler           ; ADC1 Sequence 3</span><br><span class="line">        DCD     0                           ; Reserved</span><br><span class="line">        DCD     0                           ; Reserved</span><br><span class="line">        DCD     IntDefaultHandler           ; GPIO Port J</span><br><span class="line">        DCD     IntDefaultHandler           ; GPIO Port K</span><br><span class="line">        DCD     IntDefaultHandler           ; GPIO Port L</span><br><span class="line">        DCD     IntDefaultHandler           ; SSI2 Rx and Tx</span><br><span class="line">        DCD     IntDefaultHandler           ; SSI3 Rx and Tx</span><br><span class="line">        DCD     IntDefaultHandler           ; UART3 Rx and Tx</span><br><span class="line">        DCD     IntDefaultHandler           ; UART4 Rx and Tx</span><br><span class="line">        DCD     IntDefaultHandler           ; UART5 Rx and Tx</span><br><span class="line">        DCD     IntDefaultHandler           ; UART6 Rx and Tx</span><br><span class="line">        DCD     IntDefaultHandler           ; UART7 Rx and Tx</span><br><span class="line">        DCD     0                           ; Reserved</span><br><span class="line">        DCD     0                           ; Reserved</span><br><span class="line">        DCD     0                           ; Reserved</span><br><span class="line">        DCD     0                           ; Reserved</span><br><span class="line">        DCD     IntDefaultHandler           ; I2C2 Master and Slave</span><br><span class="line">        DCD     IntDefaultHandler           ; I2C3 Master and Slave</span><br><span class="line">        DCD     IntDefaultHandler           ; Timer 4 subtimer A</span><br><span class="line">        DCD     IntDefaultHandler           ; Timer 4 subtimer B</span><br><span class="line">        DCD     0                           ; Reserved</span><br><span class="line">        DCD     0                           ; Reserved</span><br><span class="line">        DCD     0                           ; Reserved</span><br><span class="line">        DCD     0                           ; Reserved</span><br><span class="line">        DCD     0                           ; Reserved</span><br><span class="line">        DCD     0                           ; Reserved</span><br><span class="line">        DCD     0                           ; Reserved</span><br><span class="line">        DCD     0                           ; Reserved</span><br><span class="line">        DCD     0                           ; Reserved</span><br><span class="line">        DCD     0                           ; Reserved</span><br><span class="line">        DCD     0                           ; Reserved</span><br><span class="line">        DCD     0                           ; Reserved</span><br><span class="line">        DCD     0                           ; Reserved</span><br><span class="line">        DCD     0                           ; Reserved</span><br><span class="line">        DCD     0                           ; Reserved</span><br><span class="line">        DCD     0                           ; Reserved</span><br><span class="line">        DCD     0                           ; Reserved</span><br><span class="line">        DCD     0                           ; Reserved</span><br><span class="line">        DCD     0                           ; Reserved</span><br><span class="line">        DCD     0                           ; Reserved</span><br><span class="line">        DCD     IntDefaultHandler           ; Timer 5 subtimer A</span><br><span class="line">        DCD     IntDefaultHandler           ; Timer 5 subtimer B</span><br><span class="line">        DCD     IntDefaultHandler           ; Wide Timer 0 subtimer A</span><br><span class="line">        DCD     IntDefaultHandler           ; Wide Timer 0 subtimer B</span><br><span class="line">        DCD     IntDefaultHandler           ; Wide Timer 1 subtimer A</span><br><span class="line">        DCD     IntDefaultHandler           ; Wide Timer 1 subtimer B</span><br><span class="line">        DCD     IntDefaultHandler           ; Wide Timer 2 subtimer A</span><br><span class="line">        DCD     IntDefaultHandler           ; Wide Timer 2 subtimer B</span><br><span class="line">        DCD     IntDefaultHandler           ; Wide Timer 3 subtimer A</span><br><span class="line">        DCD     IntDefaultHandler           ; Wide Timer 3 subtimer B</span><br><span class="line">        DCD     IntDefaultHandler           ; Wide Timer 4 subtimer A</span><br><span class="line">        DCD     IntDefaultHandler           ; Wide Timer 4 subtimer B</span><br><span class="line">        DCD     IntDefaultHandler           ; Wide Timer 5 subtimer A</span><br><span class="line">        DCD     IntDefaultHandler           ; Wide Timer 5 subtimer B</span><br><span class="line">        DCD     IntDefaultHandler           ; FPU</span><br><span class="line">        DCD     0                           ; Reserved</span><br><span class="line">        DCD     0                           ; Reserved</span><br><span class="line">        DCD     IntDefaultHandler           ; I2C4 Master and Slave</span><br><span class="line">        DCD     IntDefaultHandler           ; I2C5 Master and Slave</span><br><span class="line">        DCD     IntDefaultHandler           ; GPIO Port M</span><br><span class="line">        DCD     IntDefaultHandler           ; GPIO Port N</span><br><span class="line">        DCD     IntDefaultHandler           ; Quadrature Encoder 2</span><br><span class="line">        DCD     0                           ; Reserved</span><br><span class="line">        DCD     0                           ; Reserved</span><br><span class="line">        DCD     IntDefaultHandler           ; GPIO Port P (Summary or P0)</span><br><span class="line">        DCD     IntDefaultHandler           ; GPIO Port P1</span><br><span class="line">        DCD     IntDefaultHandler           ; GPIO Port P2</span><br><span class="line">        DCD     IntDefaultHandler           ; GPIO Port P3</span><br><span class="line">        DCD     IntDefaultHandler           ; GPIO Port P4</span><br><span class="line">        DCD     IntDefaultHandler           ; GPIO Port P5</span><br><span class="line">        DCD     IntDefaultHandler           ; GPIO Port P6</span><br><span class="line">        DCD     IntDefaultHandler           ; GPIO Port P7</span><br><span class="line">        DCD     IntDefaultHandler           ; GPIO Port Q (Summary or Q0)</span><br><span class="line">        DCD     IntDefaultHandler           ; GPIO Port Q1</span><br><span class="line">        DCD     IntDefaultHandler           ; GPIO Port Q2</span><br><span class="line">        DCD     IntDefaultHandler           ; GPIO Port Q3</span><br><span class="line">        DCD     IntDefaultHandler           ; GPIO Port Q4</span><br><span class="line">        DCD     IntDefaultHandler           ; GPIO Port Q5</span><br><span class="line">        DCD     IntDefaultHandler           ; GPIO Port Q6</span><br><span class="line">        DCD     IntDefaultHandler           ; GPIO Port Q7</span><br><span class="line">        DCD     IntDefaultHandler           ; GPIO Port R</span><br><span class="line">        DCD     IntDefaultHandler           ; GPIO Port S</span><br><span class="line">        DCD     IntDefaultHandler           ; PWM 1 Generator 0</span><br><span class="line">        DCD     IntDefaultHandler           ; PWM 1 Generator 1</span><br><span class="line">        DCD     IntDefaultHandler           ; PWM 1 Generator 2</span><br><span class="line">        DCD     IntDefaultHandler           ; PWM 1 Generator 3</span><br><span class="line">        DCD     IntDefaultHandler           ; PWM 1 Fault</span><br><span class="line"></span><br><span class="line">;******************************************************************************</span><br><span class="line">;</span><br><span class="line">; This is the code that gets called when the processor first starts execution</span><br><span class="line">; following a reset event.</span><br><span class="line">;</span><br><span class="line">;******************************************************************************</span><br><span class="line">        EXPORT  Reset_Handler</span><br><span class="line">Reset_Handler</span><br><span class="line">        ;</span><br><span class="line">        ; Enable the floating-point unit.  This must be done here to handle the</span><br><span class="line">        ; case where main() uses floating-point and the function prologue saves</span><br><span class="line">        ; floating-point registers (which will fault if floating-point is not</span><br><span class="line">        ; enabled).  Any configuration of the floating-point unit using</span><br><span class="line">        ; DriverLib APIs must be done here prior to the floating-point unit</span><br><span class="line">        ; being enabled.</span><br><span class="line">        ;</span><br><span class="line">        ; Note that this does not use DriverLib since it might not be included</span><br><span class="line">        ; in this project.</span><br><span class="line">        ;</span><br><span class="line">        MOVW    R0, #0xED88</span><br><span class="line">        MOVT    R0, #0xE000</span><br><span class="line">        LDR     R1, [R0]</span><br><span class="line">        ORR     R1, #0x00F00000</span><br><span class="line">        STR     R1, [R0]</span><br><span class="line"></span><br><span class="line">        ;</span><br><span class="line">        ; Call the C library enty point that handles startup.  This will copy</span><br><span class="line">        ; the .data section initializers from flash to SRAM and zero fill the</span><br><span class="line">        ; .bss section.</span><br><span class="line">        ;</span><br><span class="line">        IMPORT  __main</span><br><span class="line">        B       __main</span><br><span class="line"></span><br><span class="line">;******************************************************************************</span><br><span class="line">;</span><br><span class="line">; This is the code that gets called when the processor receives a NMI.  This</span><br><span class="line">; simply enters an infinite loop, preserving the system state for examination</span><br><span class="line">; by a debugger.</span><br><span class="line">;</span><br><span class="line">;******************************************************************************</span><br><span class="line">NmiSR</span><br><span class="line">        B       NmiSR</span><br><span class="line"></span><br><span class="line">;******************************************************************************</span><br><span class="line">;</span><br><span class="line">; This is the code that gets called when the processor receives a fault</span><br><span class="line">; interrupt.  This simply enters an infinite loop, preserving the system state</span><br><span class="line">; for examination by a debugger.</span><br><span class="line">;</span><br><span class="line">;******************************************************************************</span><br><span class="line">FaultISR</span><br><span class="line">        B       FaultISR</span><br><span class="line"></span><br><span class="line">;******************************************************************************</span><br><span class="line">;</span><br><span class="line">; This is the code that gets called when the processor receives an unexpected</span><br><span class="line">; interrupt.  This simply enters an infinite loop, preserving the system state</span><br><span class="line">; for examination by a debugger.</span><br><span class="line">;</span><br><span class="line">;******************************************************************************</span><br><span class="line">IntDefaultHandler</span><br><span class="line">        B       IntDefaultHandler</span><br><span class="line"></span><br><span class="line">;******************************************************************************</span><br><span class="line">;</span><br><span class="line">; Make sure the end of this section is aligned.</span><br><span class="line">;</span><br><span class="line">;******************************************************************************</span><br><span class="line">        ALIGN</span><br><span class="line"></span><br><span class="line">;******************************************************************************</span><br><span class="line">;</span><br><span class="line">; Some code in the normal code section for initializing the heap and stack.</span><br><span class="line">;</span><br><span class="line">;******************************************************************************</span><br><span class="line">        AREA    |.text|, CODE, READONLY</span><br><span class="line"></span><br><span class="line">;******************************************************************************</span><br><span class="line">;</span><br><span class="line">; The function expected of the C library startup code for defining the stack</span><br><span class="line">; and heap memory locations.  For the C library version of the startup code,</span><br><span class="line">; provide this function so that the C library initialization code can find out</span><br><span class="line">; the location of the stack and heap.</span><br><span class="line">;</span><br><span class="line">;******************************************************************************</span><br><span class="line">    IF :DEF: __MICROLIB</span><br><span class="line">        EXPORT  __initial_sp</span><br><span class="line">        EXPORT  __heap_base</span><br><span class="line">        EXPORT  __heap_limit</span><br><span class="line">    ELSE</span><br><span class="line">        IMPORT  __use_two_region_memory</span><br><span class="line">        EXPORT  __user_initial_stackheap</span><br><span class="line">__user_initial_stackheap</span><br><span class="line">        LDR     R0, =HeapMem</span><br><span class="line">        LDR     R1, =(StackMem + Stack)</span><br><span class="line">        LDR     R2, =(HeapMem + Heap)</span><br><span class="line">        LDR     R3, =StackMem</span><br><span class="line">        BX      LR</span><br><span class="line">    ENDIF</span><br><span class="line"></span><br><span class="line">;******************************************************************************</span><br><span class="line">;</span><br><span class="line">; Make sure the end of this section is aligned.</span><br><span class="line">;</span><br><span class="line">;******************************************************************************</span><br><span class="line">        ALIGN</span><br><span class="line"></span><br><span class="line">;******************************************************************************</span><br><span class="line">;</span><br><span class="line">; Tell the assembler that we&apos;re done.</span><br><span class="line">;</span><br><span class="line">;******************************************************************************</span><br><span class="line">        END</span><br></pre></td></tr></table></figure></p>
+<p>这里面添加了许多外设以及和FREERTOS时钟控制有关的定义。有兴趣的可以研究一下。</p>
+<h2><span id="五-修改代码">五、修改代码</span></h2><p>将代码修改如下<br>led.c:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line">//*****************************************************************************</span><br><span class="line">//</span><br><span class="line">// led_task.c - A simple flashing LED task.</span><br><span class="line">//</span><br><span class="line">// Copyright (c) 2012-2017 Texas Instruments Incorporated.  All rights reserved.</span><br><span class="line">// Software License Agreement</span><br><span class="line">// </span><br><span class="line">// Texas Instruments (TI) is supplying this software for use solely and</span><br><span class="line">// exclusively on TI&apos;s microcontroller products. The software is owned by</span><br><span class="line">// TI and/or its suppliers, and is protected under applicable copyright</span><br><span class="line">// laws. You may not combine this software with &quot;viral&quot; open-source</span><br><span class="line">// software in order to form a larger program.</span><br><span class="line">// </span><br><span class="line">// THIS SOFTWARE IS PROVIDED &quot;AS IS&quot; AND WITH ALL FAULTS.</span><br><span class="line">// NO WARRANTIES, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING, BUT</span><br><span class="line">// NOT LIMITED TO, IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR</span><br><span class="line">// A PARTICULAR PURPOSE APPLY TO THIS SOFTWARE. TI SHALL NOT, UNDER ANY</span><br><span class="line">// CIRCUMSTANCES, BE LIABLE FOR SPECIAL, INCIDENTAL, OR CONSEQUENTIAL</span><br><span class="line">// DAMAGES, FOR ANY REASON WHATSOEVER.</span><br><span class="line">// </span><br><span class="line">// This is part of revision 2.1.4.178 of the EK-TM4C123GXL Firmware Package.</span><br><span class="line">//</span><br><span class="line">//*****************************************************************************</span><br><span class="line">#include &lt;stdint.h&gt;</span><br><span class="line">#include &lt;stdbool.h&gt;</span><br><span class="line">#include &quot;inc/hw_gpio.h&quot;</span><br><span class="line">#include &quot;inc/hw_ints.h&quot;</span><br><span class="line">#include &quot;inc/hw_memmap.h&quot;</span><br><span class="line">#include &quot;inc/hw_types.h&quot;</span><br><span class="line">#include &quot;driverlib/debug.h&quot;</span><br><span class="line">#include &quot;driverlib/fpu.h&quot;</span><br><span class="line">#include &quot;driverlib/gpio.h&quot;</span><br><span class="line">#include &quot;driverlib/interrupt.h&quot;</span><br><span class="line">#include &quot;driverlib/pin_map.h&quot;</span><br><span class="line">#include &quot;driverlib/rom.h&quot;</span><br><span class="line">#include &quot;driverlib/rom_map.h&quot;</span><br><span class="line">#include &quot;driverlib/sysctl.h&quot;</span><br><span class="line">#include &quot;driverlib/systick.h&quot;</span><br><span class="line">#include &quot;driverlib/uart.h&quot;</span><br><span class="line">#include &quot;FreeRTOSConfig.h&quot;</span><br><span class="line">#include &quot;FreeRTOS.h&quot;</span><br><span class="line">#include &quot;queue.h&quot;</span><br><span class="line">#include &quot;task.h&quot;</span><br><span class="line">#include &quot;functions/led_task.h&quot;</span><br><span class="line">//*****************************************************************************</span><br><span class="line"></span><br><span class="line">#define LED_TASK_PRIO          1        //ÈÎÎñÓÅÏÈ¼¶</span><br><span class="line">#define LED_STK_SIZE            150       //ÈÎÎñ¶ÑÕ»´óÐ¡</span><br><span class="line"></span><br><span class="line">//*****************************************************************************</span><br><span class="line">//</span><br><span class="line">// This task toggles the user selected LED at a user selected frequency. User</span><br><span class="line">// can make the selections by pressing the left and right buttons.</span><br><span class="line">//</span><br><span class="line">//*****************************************************************************</span><br><span class="line">void</span><br><span class="line">DemoLEDTask(void *pvParameters)</span><br><span class="line">&#123;</span><br><span class="line">    while(1)</span><br><span class="line">    &#123;</span><br><span class="line">        GPIOPinWrite(GPIO_PORTN_BASE, GPIO_PIN_0, GPIO_PIN_0);</span><br><span class="line">        vTaskDelay(1000);       </span><br><span class="line">        GPIOPinWrite(GPIO_PORTN_BASE, GPIO_PIN_0, 0);</span><br><span class="line">        vTaskDelay(1000);     </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//*****************************************************************************</span><br><span class="line">//</span><br><span class="line">// Initializes the LED task.</span><br><span class="line">//</span><br><span class="line">//*****************************************************************************</span><br><span class="line">void</span><br><span class="line">LEDTaskInit(void)</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    //</span><br><span class="line">    // Create the LED task.</span><br><span class="line">    //</span><br><span class="line">    xTaskCreate(</span><br><span class="line">                        DemoLEDTask,                       //ÈÎÎñº¯Êý</span><br><span class="line">                       (const portCHAR *)&quot;LED&quot;, //ÈÎÎñÃû³Æ </span><br><span class="line">                        LED_STK_SIZE,              // ÈÎÎñ¶ÑÕ»´óÐ¡ </span><br><span class="line">                        NULL,       </span><br><span class="line">                        LED_TASK_PRIO,</span><br><span class="line">                        NULL</span><br><span class="line">    );</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>main .c:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br></pre></td><td class="code"><pre><span class="line">//*****************************************************************************</span><br><span class="line">//</span><br><span class="line">// blinky.c - Simple example to blink the on-board LED.</span><br><span class="line">//</span><br><span class="line">// Copyright (c) 2013-2017 Texas Instruments Incorporated.  All rights reserved.</span><br><span class="line">// Software License Agreement</span><br><span class="line">// </span><br><span class="line">// Texas Instruments (TI) is supplying this software for use solely and</span><br><span class="line">// exclusively on TI&apos;s microcontroller products. The software is owned by</span><br><span class="line">// TI and/or its suppliers, and is protected under applicable copyright</span><br><span class="line">// laws. You may not combine this software with &quot;viral&quot; open-source</span><br><span class="line">// software in order to form a larger program.</span><br><span class="line">// </span><br><span class="line">// THIS SOFTWARE IS PROVIDED &quot;AS IS&quot; AND WITH ALL FAULTS.</span><br><span class="line">// NO WARRANTIES, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING, BUT</span><br><span class="line">// NOT LIMITED TO, IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR</span><br><span class="line">// A PARTICULAR PURPOSE APPLY TO THIS SOFTWARE. TI SHALL NOT, UNDER ANY</span><br><span class="line">// CIRCUMSTANCES, BE LIABLE FOR SPECIAL, INCIDENTAL, OR CONSEQUENTIAL</span><br><span class="line">// DAMAGES, FOR ANY REASON WHATSOEVER.</span><br><span class="line">// </span><br><span class="line">// This is part of revision 2.1.4.178 of the EK-TM4C1294XL Firmware Package.</span><br><span class="line">//</span><br><span class="line">//*****************************************************************************</span><br><span class="line"></span><br><span class="line">#include &lt;stdint.h&gt;</span><br><span class="line">#include &lt;stdbool.h&gt;</span><br><span class="line">#include &quot;inc/hw_gpio.h&quot;</span><br><span class="line">#include &quot;inc/hw_ints.h&quot;</span><br><span class="line">#include &quot;inc/hw_memmap.h&quot;</span><br><span class="line">#include &quot;inc/hw_types.h&quot;</span><br><span class="line">#include &quot;driverlib/debug.h&quot;</span><br><span class="line">#include &quot;driverlib/fpu.h&quot;</span><br><span class="line">#include &quot;driverlib/gpio.h&quot;</span><br><span class="line">#include &quot;driverlib/interrupt.h&quot;</span><br><span class="line">#include &quot;driverlib/pin_map.h&quot;</span><br><span class="line">#include &quot;driverlib/rom.h&quot;</span><br><span class="line">#include &quot;driverlib/rom_map.h&quot;</span><br><span class="line">#include &quot;driverlib/sysctl.h&quot;</span><br><span class="line">#include &quot;driverlib/systick.h&quot;</span><br><span class="line">#include &quot;driverlib/uart.h&quot;</span><br><span class="line">#include &quot;utils/uartstdio.h&quot;</span><br><span class="line">#include &quot;FreeRTOSConfig.h&quot;</span><br><span class="line">#include &quot;FreeRTOS.h&quot;</span><br><span class="line">#include &quot;queue.h&quot;</span><br><span class="line">#include &quot;task.h&quot;</span><br><span class="line">#include &quot;functions/led_task.h&quot;</span><br><span class="line">#include &quot;functions/uartprint.h&quot;</span><br><span class="line"></span><br><span class="line">//*****************************************************************************</span><br><span class="line">//</span><br><span class="line">//! \addtogroup example_list</span><br><span class="line">//! &lt;h1&gt;Blinky (blinky)&lt;/h1&gt;</span><br><span class="line">//!</span><br><span class="line">//! A very simple example that blinks the on-board LED using direct register</span><br><span class="line">//! access.</span><br><span class="line">//</span><br><span class="line">//*****************************************************************************</span><br><span class="line"></span><br><span class="line">//*****************************************************************************</span><br><span class="line">//</span><br><span class="line">// The error routine that is called if the driver library encounters an error.</span><br><span class="line">//</span><br><span class="line">//*****************************************************************************</span><br><span class="line">#ifdef DEBUG</span><br><span class="line">void</span><br><span class="line">__error__(char *pcFilename, uint32_t ui32Line)</span><br><span class="line">&#123;</span><br><span class="line">    while(1);</span><br><span class="line">&#125;</span><br><span class="line">#endif</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">void demoSerialTask(void *pvParameters);</span><br><span class="line"></span><br><span class="line">//*****************************************************************************</span><br><span class="line">//</span><br><span class="line">// Configure the UART and its pins.  This must be called before UARTprintf().</span><br><span class="line">//</span><br><span class="line">//*****************************************************************************</span><br><span class="line">void</span><br><span class="line">ConfigureUART(void)</span><br><span class="line">&#123;</span><br><span class="line">    //</span><br><span class="line">    // Enable the GPIO Peripheral used by the UART.</span><br><span class="line">    //</span><br><span class="line">    SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOA);</span><br><span class="line"></span><br><span class="line">    //</span><br><span class="line">    // Enable UART0</span><br><span class="line">    //</span><br><span class="line">    SysCtlPeripheralEnable(SYSCTL_PERIPH_UART0);</span><br><span class="line"></span><br><span class="line">    //</span><br><span class="line">    // Configure GPIO Pins for UART mode.</span><br><span class="line">    //</span><br><span class="line">    GPIOPinConfigure(GPIO_PA0_U0RX);</span><br><span class="line">    GPIOPinConfigure(GPIO_PA1_U0TX);</span><br><span class="line">    GPIOPinTypeUART(GPIO_PORTA_BASE, GPIO_PIN_0 | GPIO_PIN_1);</span><br><span class="line"></span><br><span class="line">    //</span><br><span class="line">    // Use the internal 16MHz oscillator as the UART clock source.</span><br><span class="line">    //</span><br><span class="line">    UARTClockSourceSet(UART0_BASE, UART_CLOCK_PIOSC);</span><br><span class="line"></span><br><span class="line">    //</span><br><span class="line">    // Initialize the UART for console I/O.</span><br><span class="line">    //</span><br><span class="line">    UARTStdioConfig(0, 115200, 16000000);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//*****************************************************************************</span><br><span class="line">//</span><br><span class="line">// Blink the on-board LED.</span><br><span class="line">//</span><br><span class="line">//*****************************************************************************</span><br><span class="line">int</span><br><span class="line">main(void)</span><br><span class="line">&#123;</span><br><span class="line">    </span><br><span class="line">   SysCtlClockFreqSet((SYSCTL_XTAL_25MHZ |</span><br><span class="line">                                             SYSCTL_OSC_MAIN |</span><br><span class="line">                                             SYSCTL_USE_PLL |</span><br><span class="line">                                             SYSCTL_CFG_VCO_480), 120000000);</span><br><span class="line">    </span><br><span class="line">    ConfigureUART();</span><br><span class="line">    </span><br><span class="line">    UARTprintf(&quot;Start!\n&quot;);</span><br><span class="line">    //</span><br><span class="line">    // Enable the GPIO port that is used for the on-board LED.</span><br><span class="line">    //</span><br><span class="line">    SysCtlPeripheralEnable(SYSCTL_PERIPH_GPION);</span><br><span class="line"></span><br><span class="line">    //</span><br><span class="line">    // Check if the peripheral access is enabled.</span><br><span class="line">    //</span><br><span class="line">    while(!SysCtlPeripheralReady(SYSCTL_PERIPH_GPION))</span><br><span class="line">    &#123;</span><br><span class="line">    &#125;</span><br><span class="line">//    //</span><br><span class="line">//    // Initialize the button driver.</span><br><span class="line">//    //</span><br><span class="line">//    ButtonsInit();</span><br><span class="line">    //</span><br><span class="line">    // Enable the GPIO pin for the LED (PN0).  Set the direction as output, and</span><br><span class="line">    // enable the GPIO pin for digital function.</span><br><span class="line">    //</span><br><span class="line">    GPIOPinTypeGPIOOutput(GPIO_PORTN_BASE, GPIO_PIN_0);</span><br><span class="line">    //</span><br><span class="line">    // Loop forever.</span><br><span class="line">    //</span><br><span class="line">    </span><br><span class="line">    GPIOPinWrite(GPIO_PORTN_BASE, GPIO_PIN_0, GPIO_PIN_0);</span><br><span class="line">        </span><br><span class="line">    LEDTaskInit();                                        //µãµÆÈÎÎñ´´½¨</span><br><span class="line">        </span><br><span class="line">    vTaskStartScheduler();                         //¿ªÆôÈÎÎñµ÷¶È</span><br><span class="line"></span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>编译下载即可。</p>
+<p>最后，附上我自己完成好的工程。<br><a href="https://pan.baidu.com/s/1Y8pTxEkZ6DrNDHKdKpT72Q" target="_blank" rel="noopener">例程</a></p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+    <div class="bdsharebuttonbox">
+    <a href="#" class="bds_more" data-cmd="more">分享到：</a>
+    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间">QQ空间</a>
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博">新浪微博</a>
+    <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博">腾讯微博</a>
+    <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网">人人网</a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信">微信</a>
+</div>
+<script>
+window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{"bdSize":16}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+<style>
+    .bdshare_popup_box {
+        border-radius: 4px;
+        border: #e1e1e1 solid 1px;
+    }
+    .bdshare-button-style0-16 a,
+    .bdshare-button-style0-16 .bds_more {
+        padding-left: 20px;
+        margin: 6px 10px 6px 0;
+    }
+    .bdshare_dialog_list a,
+    .bdshare_popup_list a,
+    .bdshare_popup_bottom a {
+        font-family: 'Microsoft Yahei';
+    }
+    .bdshare_popup_top {
+        display: none;
+    }
+    .bdshare_popup_bottom {
+        height: auto;
+        padding: 5px;
+    }
+</style>
+
+
+
+        </footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+    </section>
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>关注我 :</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/Leixx98" target="_blank">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="zhihu" href="https://www.zhihu.com/people/lei-xiang-xing" target="_blank">
+                        <i class="icon fa fa-zhihu"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="csdn" href="https://blog.csdn.net/qq_36854651" target="_blank">
+                        <i class="icon fa fa-csdn"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="hupu" href="https://my.hupu.com/169768324091547" target="_blank">
+                        <i class="icon fa fa-hupu"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2018/08/17/三年/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">下一篇</strong>
+        <p class="article-nav-title">
+        
+            三年
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/2018/08/07/TM4129教程之建立工程/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">上一篇</strong>
+        <p class="article-nav-title">TM4129教程之建立工程</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">最新文章</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/04/10/2019华为实习面经/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/2019/04/10/2019华为实习面经/1.jpg)" alt="2019华为实习面经" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/work/">work</a></p>
+                            <p class="item-title"><a href="/2019/04/10/2019华为实习面经/" class="title">2019华为实习面经</a></p>
+                            <p class="item-date"><time datetime="2019-04-10T03:38:38.000Z" itemprop="datePublished">2019-04-10</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/03/08/零中频正交解调幅频特性测试仪原理/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/2019/03/08/零中频正交解调幅频特性测试仪原理/1.jpg)" alt="零中频正交解调幅频特性测量原理" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/work/">work</a></p>
+                            <p class="item-title"><a href="/2019/03/08/零中频正交解调幅频特性测试仪原理/" class="title">零中频正交解调幅频特性测量原理</a></p>
+                            <p class="item-date"><time datetime="2019-03-08T06:20:38.000Z" itemprop="datePublished">2019-03-08</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/03/07/电脑简易选购指南/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/2019/03/07/电脑简易选购指南/1.jpg)" alt="电脑简易选购指南" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/life/">life</a></p>
+                            <p class="item-title"><a href="/2019/03/07/电脑简易选购指南/" class="title">电脑简易选购指南</a></p>
+                            <p class="item-date"><time datetime="2019-03-07T10:26:38.000Z" itemprop="datePublished">2019-03-07</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/09/30/9月小结/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/2018/09/30/9月小结/0.jpg)" alt="9月小结" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/life/">life</a></p>
+                            <p class="item-title"><a href="/2018/09/30/9月小结/" class="title">9月小结</a></p>
+                            <p class="item-date"><time datetime="2018-09-30T09:21:12.000Z" itemprop="datePublished">2018-09-30</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/09/25/通院大三上课程设计指南/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/2018/09/25/通院大三上课程设计指南/16.jpg)" alt="通院大三上课程设计指南" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/work/">work</a></p>
+                            <p class="item-title"><a href="/2018/09/25/通院大三上课程设计指南/" class="title">通院大三上课程设计指南</a></p>
+                            <p class="item-date"><time datetime="2018-09-25T12:02:31.000Z" itemprop="datePublished">2018-09-25</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">分类</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/life/">life</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/think/">think</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/work/">work</a><span class="category-list-count">10</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">归档</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">2</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">标签</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/funny/">funny</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/life/">life</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/love/">love</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/think/">think</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work/">work</a><span class="tag-list-count">10</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">标签云</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/Life/" style="font-size: 15px;">Life</a> <a href="/tags/funny/" style="font-size: 10px;">funny</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/life/" style="font-size: 15px;">life</a> <a href="/tags/love/" style="font-size: 12.5px;">love</a> <a href="/tags/think/" style="font-size: 17.5px;">think</a> <a href="/tags/work/" style="font-size: 20px;">work</a>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">链接</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2020 lei xx</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+        
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

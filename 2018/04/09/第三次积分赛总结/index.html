@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    
+    <title>第三次积分赛总结 | Leixx</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="work,think">
+    
+    <meta name="description" content="C题等精度测频1.等精度测频法原理图如下：  测量开始，首先发出一个清零信号CLR，使2个32 b的计数器和D触发器置0，然后再发出允许测频命令，即使预置门控信号GATE为高电平，这时D触发器要一直等到被测信号的上升沿通过时，Q端才被置1，即使BZ_ENA和DC_ENA同时为1，将启动计算器BZ_Counter和DC_Counter，系统进入计算允许周期。这时，计数器BZ_Counter和DC_">
+<meta name="keywords" content="work,think">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第三次积分赛总结">
+<meta property="og:url" content="http://yoursite.com/2018/04/09/第三次积分赛总结/index.html">
+<meta property="og:site_name" content="Leixx">
+<meta property="og:description" content="C题等精度测频1.等精度测频法原理图如下：  测量开始，首先发出一个清零信号CLR，使2个32 b的计数器和D触发器置0，然后再发出允许测频命令，即使预置门控信号GATE为高电平，这时D触发器要一直等到被测信号的上升沿通过时，Q端才被置1，即使BZ_ENA和DC_ENA同时为1，将启动计算器BZ_Counter和DC_Counter，系统进入计算允许周期。这时，计数器BZ_Counter和DC_">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2018/04/09/第三次积分赛总结/1.png">
+<meta property="og:updated_time" content="2018-04-09T16:25:00.921Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="第三次积分赛总结">
+<meta name="twitter:description" content="C题等精度测频1.等精度测频法原理图如下：  测量开始，首先发出一个清零信号CLR，使2个32 b的计数器和D触发器置0，然后再发出允许测频命令，即使预置门控信号GATE为高电平，这时D触发器要一直等到被测信号的上升沿通过时，Q端才被置1，即使BZ_ENA和DC_ENA同时为1，将启动计算器BZ_Counter和DC_Counter，系统进入计算允许周期。这时，计数器BZ_Counter和DC_">
+<meta name="twitter:image" content="http://yoursite.com/2018/04/09/第三次积分赛总结/1.png">
+    
+
+    
+
+    
+        <link rel="icon" href="/css/images/favicon.ico">
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.0.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+
+
+</head>
+</html>
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/">主页</a>
+                                </li>
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/categories/work">工作</a>
+                                </li>
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/categories/think">思考</a>
+                                </li>
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/categories/life">生活</a>
+                                </li>
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/categories/tag">标签</a>
+                                </li>
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/about/index.html">关于</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/work/">work</a>
+    </h1>
+</div>
+                        <div class="main-body-content">
+                            <article id="post-第三次积分赛总结" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        第三次积分赛总结
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2018/04/09/第三次积分赛总结/" class="article-date">
+            <time datetime="2018-04-09T06:51:12.000Z" itemprop="datePublished">2018-04-09</time>
+        </a>
+    </div>
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/think/">think</a>, <a class="tag-link" href="/tags/work/">work</a>
+    </div>
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p><img src="/2018/04/09/第三次积分赛总结/1.png" alt></p>
+<h1><span id="c题等精度测频">C题等精度测频</span></h1><h2><span id="1等精度测频法">1.等精度测频法</span></h2><p>原理图如下：<br><img src="/2018/04/09/第三次积分赛总结/2.jpg" alt></p>
+<p><img src="/2018/04/09/第三次积分赛总结/3.jpg" alt></p>
+<p>测量开始，首先发出一个清零信号CLR，使2个32 b的计数器和D触发器置0，然后再发出允许测频命令，即使预置门控信号GATE为高电平，这时D触发器要一直等到被测信号的上升沿通过时，Q端才被置1，即使BZ_ENA和DC_ENA同时为1，将启动计算器BZ_Counter和DC_Counter，系统进入计算允许周期。这时，计数器BZ_Counter和DC_Counter分别对被测信号和标准频率信号同时计数。当Tc秒过后，预置门控信号被单片机置为低电平，但此时2个32 b的计数器仍然没有停止计数，一直等到随后而至的被测信号的上升沿到来时，才通过D触发器将这2个计算器同时关闭。由图2所示的测频时序图可见，GATE的宽度和发生的时间都不会影响计数使能信号允许计数的周期总是恰好等于待测信号XCLK的完整周期，这正是确保XCLK在任何频率条件下都能保持恒定测量精度的关键。因为，此时GATE的宽度Tc改变以及随机的出现时间造成的误差最多只有基准时钟BCLK信号的一个时钟周期，由于BCLK的信号是由高稳定度的100 MHz晶体振荡器发出的，所以任何时刻的绝对测量误差只有1/108 s，这也是系统产生主要的误差。</p>
+<h2><span id="2系统方案">2.系统方案</span></h2><p>本次采用了FPGA测量频率，占空比，时间间隔的方法，单片机与串口屏则作为数据接收与显示方案。本题原理清晰，实现的算法多样。</p>
+<p><img src="/2018/04/09/第三次积分赛总结/4.png" alt></p>
+<p>单片机与FPGA采用串口通信，波特率为115200.通信方案为：FPGA不停地将每次测量的结果发送给MCU。数据帧头为0X0A，数据帧尾为0X0D。每次发送数据长度为16字节，包含4个32位数据。数据处理格式为：</p>
+<ul>
+<li>频率=数据1/数据0</li>
+<li>占空比=数据2/数据0</li>
+<li>相位差=数据3<h2><span id="3遇到的问题">3.遇到的问题</span></h2></li>
+</ul>
+<h3><span id="1串口接收数据错误">1.串口接收数据错误</span></h3><ul>
+<li>MCU采用串口中断触发不使用FIFO的方式接收数据，每接收一字节的数据就进入中断。结果显示，接收的数据常常在数据头或者数据尾发生错误。</li>
+<li>原因分析：在串口接收过程中，由于中断中存在判断数据帧头语句，因此在数据帧头后紧接着的数据头易丢书。和中断进入也有关系</li>
+<li>解决方案：放弃使用中断接收数据，改为在while(1)大循环中使用while循环，判断串口是否为空的方式接收数据</li>
+</ul>
+<h3><span id="2使用tm4与串口屏通信时没有现象">2.使用TM4与串口屏通信时，没有现象</span></h3><ul>
+<li>按照UART的常规配置方法配置好后，串口屏未接收到数据，插入电脑测试后也无现象</li>
+<li>原因分析：TM4对某些引脚采用了锁引脚的操作，使得某些引脚如果不解锁则无法使用</li>
+<li>解决方案：换用串口5</li>
+</ul>
+<h3><span id="3数据处理出错">3.数据处理出错</span></h3><ul>
+<li>在对数据处理时，经过乘方运算后，输出数据错误</li>
+<li>错误分析：C语言实际上是不提供乘方操作的</li>
+<li>解决方案：调用math.h中的pow函数实现乘方操作</li>
+</ul>
+<h2><span id="4最终结果">4.最终结果</span></h2><ul>
+<li>频率测量范围：1Hz-40M,平均误差不高于1%</li>
+<li>占空比测量误差较大，最大有5%的误差</li>
+<li>时间间隔测量准确，平均误差为1%</li>
+</ul>
+<h2><span id="5需要改进">5.需要改进</span></h2><ul>
+<li>增加高频信号测量</li>
+<li>减小误差，尤其是占空比测量</li>
+</ul>
+<h1><span id="b题锁定放大器">B题锁定放大器</span></h1><h2><span id="1锁定放大器原理">1.锁定放大器原理</span></h2><p>两个信号相乘，因为在同频同相的情况下才会生成一个带直流偏量的信号。通过一个低通滤波器滤除交流成分，就会得到一个与原始输入信号成正比的<em>直流信号</em>，通过测量这个直流信号，就可以得到输入信号的值<br>因为锁定放大器抗干扰能力强，所以通常被用来测量微弱信号</p>
+<h2><span id="2系统方案">2.系统方案</span></h2><p>整个系统以相敏检波器为核心，输入信号进来后，首先经过一个交流放大器放大微弱的信号，之后通过一个中心频率为1kHz的带通滤波器来滤除其他频率的噪声。同时，输入信号再分出一路通过一个迟滞比较器进行触发整形，再经过一个由FPGA实现的数字移向器，之后通过一个用作方波驱动的放大器将方波信号放大。两路信号加到乘法器中，由于两信号同频同相，所以会产生一个带直流偏置的信号。将相敏检波器输出的信号通过一个低通滤波器滤除交流成分，得到直流信号，最后使用TM4内置12位AD测量直流信号，并发送到串口屏进行显示。<br>该系统中交流放大器分两级，后级为固定增益的放大器，前级为增益可控的程控放大器，其增益范围为1，10，100，1000.<br>系统框图如下：</p>
+<p><img src="/2018/04/09/第三次积分赛总结/5.png" alt></p>
+<h2><span id="3遇到的问题">3.遇到的问题</span></h2><h3><span id="1测量信号时出现幅值缓慢下降">1.测量信号时出现幅值缓慢下降</span></h3><ul>
+<li>使用AD测量幅值时，幅度值难以稳定，呈缓慢下降趋势。</li>
+<li>原因分析：<em>带通滤波器带增益</em>，造成经过带通滤波器的信号出现缓慢相移，使原先对齐相位的信号不再，使得幅度下滑</li>
+<li>解决方案：改为使用不带增益的带通滤波器</li>
+</ul>
+<h3><span id="2测量信号时出现幅值来回跳动的情况">2.测量信号时出现幅值来回跳动的情况</span></h3><ul>
+<li>使用AD测量时，经过拟合后的数据在不同测试时呈现不同的结果</li>
+<li>原因分析：每次锁定放大器产生的<em>直流偏量</em>不尽相同，使得拟合失去意义</li>
+<li>解决方案：无</li>
+</ul>
+<h3><span id="3测试方案不对">3.测试方案不对</span></h3><ul>
+<li>采用更改衰减器的方案来分段测量100uV-1mV和1mV-10mV的信号。在测试的过程中，老师则认为作品应当是完备的，<em>不被更改</em>的，在测试过程中修改电路是错误的做法</li>
+</ul>
+<h3><span id="4增益控制无法切换">4.增益控制无法切换</span></h3><ul>
+<li>本次放大采用程控的方案，通过判读AD采样的阈值来切换放大的挡位。在实际测试中出现挡位停留在100档出不来的现象。</li>
+<li>原因分析：经查找，发现100倍放大时电路出现削顶现象，无论怎么样改变输入，都无法改变输出电压，且输出电压始终无法达到阈值</li>
+<li>解决方案：调低阈值</li>
+</ul>
+<h3><span id="5带通滤波器出现50hz漂移">5.带通滤波器出现50Hz漂移</span></h3><h3><span id="6加法器没能实现11叠加从而无法在10倍噪声幅度下提取信号">6.加法器没能实现1：1叠加，从而无法在10倍噪声幅度下提取信号</span></h3><h2><span id="4最终结果">4.最终结果</span></h2><ul>
+<li>能较准确的测量信号，但整个电路需要一定的调整时间。</li>
+<li>无法换挡，导致不停按Reset</li>
+<li>10倍噪声无法测量信号</li>
+</ul>
+<h2><span id="5需要改进">5.需要改进</span></h2><p>增加整个电路输出的稳定性</p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+    <div class="bdsharebuttonbox">
+    <a href="#" class="bds_more" data-cmd="more">分享到：</a>
+    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间">QQ空间</a>
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博">新浪微博</a>
+    <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博">腾讯微博</a>
+    <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网">人人网</a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信">微信</a>
+</div>
+<script>
+window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{"bdSize":16}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+<style>
+    .bdshare_popup_box {
+        border-radius: 4px;
+        border: #e1e1e1 solid 1px;
+    }
+    .bdshare-button-style0-16 a,
+    .bdshare-button-style0-16 .bds_more {
+        padding-left: 20px;
+        margin: 6px 10px 6px 0;
+    }
+    .bdshare_dialog_list a,
+    .bdshare_popup_list a,
+    .bdshare_popup_bottom a {
+        font-family: 'Microsoft Yahei';
+    }
+    .bdshare_popup_top {
+        display: none;
+    }
+    .bdshare_popup_bottom {
+        height: auto;
+        padding: 5px;
+    }
+</style>
+
+
+
+        </footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+    </section>
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>关注我 :</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/Leixx98" target="_blank">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="zhihu" href="https://www.zhihu.com/people/lei-xiang-xing" target="_blank">
+                        <i class="icon fa fa-zhihu"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="csdn" href="https://blog.csdn.net/qq_36854651" target="_blank">
+                        <i class="icon fa fa-csdn"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="hupu" href="https://my.hupu.com/169768324091547" target="_blank">
+                        <i class="icon fa fa-hupu"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2018/04/18/和女孩聊什么/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">下一篇</strong>
+        <p class="article-nav-title">
+        
+            和女孩聊什么
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/2018/04/09/4月9日随想/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">上一篇</strong>
+        <p class="article-nav-title">4月9日随想</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">最新文章</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/04/10/2019华为实习面经/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/2019/04/10/2019华为实习面经/1.jpg)" alt="2019华为实习面经" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/work/">work</a></p>
+                            <p class="item-title"><a href="/2019/04/10/2019华为实习面经/" class="title">2019华为实习面经</a></p>
+                            <p class="item-date"><time datetime="2019-04-10T03:38:38.000Z" itemprop="datePublished">2019-04-10</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/03/08/零中频正交解调幅频特性测试仪原理/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/2019/03/08/零中频正交解调幅频特性测试仪原理/1.jpg)" alt="零中频正交解调幅频特性测量原理" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/work/">work</a></p>
+                            <p class="item-title"><a href="/2019/03/08/零中频正交解调幅频特性测试仪原理/" class="title">零中频正交解调幅频特性测量原理</a></p>
+                            <p class="item-date"><time datetime="2019-03-08T06:20:38.000Z" itemprop="datePublished">2019-03-08</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/03/07/电脑简易选购指南/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/2019/03/07/电脑简易选购指南/1.jpg)" alt="电脑简易选购指南" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/life/">life</a></p>
+                            <p class="item-title"><a href="/2019/03/07/电脑简易选购指南/" class="title">电脑简易选购指南</a></p>
+                            <p class="item-date"><time datetime="2019-03-07T10:26:38.000Z" itemprop="datePublished">2019-03-07</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/09/30/9月小结/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/2018/09/30/9月小结/0.jpg)" alt="9月小结" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/life/">life</a></p>
+                            <p class="item-title"><a href="/2018/09/30/9月小结/" class="title">9月小结</a></p>
+                            <p class="item-date"><time datetime="2018-09-30T09:21:12.000Z" itemprop="datePublished">2018-09-30</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/09/25/通院大三上课程设计指南/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/2018/09/25/通院大三上课程设计指南/16.jpg)" alt="通院大三上课程设计指南" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/work/">work</a></p>
+                            <p class="item-title"><a href="/2018/09/25/通院大三上课程设计指南/" class="title">通院大三上课程设计指南</a></p>
+                            <p class="item-date"><time datetime="2018-09-25T12:02:31.000Z" itemprop="datePublished">2018-09-25</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">分类</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/life/">life</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/think/">think</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/work/">work</a><span class="category-list-count">10</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">归档</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">2</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">标签</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/funny/">funny</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/life/">life</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/love/">love</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/think/">think</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work/">work</a><span class="tag-list-count">10</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">标签云</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/Life/" style="font-size: 15px;">Life</a> <a href="/tags/funny/" style="font-size: 10px;">funny</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/life/" style="font-size: 15px;">life</a> <a href="/tags/love/" style="font-size: 12.5px;">love</a> <a href="/tags/think/" style="font-size: 17.5px;">think</a> <a href="/tags/work/" style="font-size: 20px;">work</a>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">链接</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2020 lei xx</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+        
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    
+    <title>KEIL5安装 | Leixx</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="work,think">
+    
+    <meta name="description" content="STM32F4xx系列开发工具MDK5安装教程一、安装MDK51首先下载MDK5安装包 1点击安装 1下面选择安装位置，默认安装C盘，建议更改在其他硬盘 1填写个人信息 1安装 1安装成功后，桌面出现下列图标 1最后点击 Finish 即可完成安装，随后，MDK 会自动弹出 Pack Installer 界面 1点击Check for Update确认更新 1找到STM32F4XX，未更新显示为">
+<meta name="keywords" content="work,think">
+<meta property="og:type" content="article">
+<meta property="og:title" content="KEIL5安装">
+<meta property="og:url" content="http://yoursite.com/2018/09/11/KEIL5安装/index.html">
+<meta property="og:site_name" content="Leixx">
+<meta property="og:description" content="STM32F4xx系列开发工具MDK5安装教程一、安装MDK51首先下载MDK5安装包 1点击安装 1下面选择安装位置，默认安装C盘，建议更改在其他硬盘 1填写个人信息 1安装 1安装成功后，桌面出现下列图标 1最后点击 Finish 即可完成安装，随后，MDK 会自动弹出 Pack Installer 界面 1点击Check for Update确认更新 1找到STM32F4XX，未更新显示为">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2018/09/11/KEIL5安装/0.jpg">
+<meta property="og:updated_time" content="2018-09-11T13:52:08.221Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="KEIL5安装">
+<meta name="twitter:description" content="STM32F4xx系列开发工具MDK5安装教程一、安装MDK51首先下载MDK5安装包 1点击安装 1下面选择安装位置，默认安装C盘，建议更改在其他硬盘 1填写个人信息 1安装 1安装成功后，桌面出现下列图标 1最后点击 Finish 即可完成安装，随后，MDK 会自动弹出 Pack Installer 界面 1点击Check for Update确认更新 1找到STM32F4XX，未更新显示为">
+<meta name="twitter:image" content="http://yoursite.com/2018/09/11/KEIL5安装/0.jpg">
+    
+
+    
+
+    
+        <link rel="icon" href="/css/images/favicon.ico">
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.0.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+
+
+</head>
+</html>
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/">主页</a>
+                                </li>
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/categories/work">工作</a>
+                                </li>
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/categories/think">思考</a>
+                                </li>
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/categories/life">生活</a>
+                                </li>
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/categories/tag">标签</a>
+                                </li>
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/about/index.html">关于</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/work/">work</a>
+    </h1>
+</div>
+                        <div class="main-body-content">
+                            <article id="post-KEIL5安装" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        KEIL5安装
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2018/09/11/KEIL5安装/" class="article-date">
+            <time datetime="2018-09-11T12:48:39.000Z" itemprop="datePublished">2018-09-11</time>
+        </a>
+    </div>
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/think/">think</a>, <a class="tag-link" href="/tags/work/">work</a>
+    </div>
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p><img src="/2018/09/11/KEIL5安装/0.jpg" alt></p>
+<h2><span id="stm32f4xx系列开发工具mdk5安装教程">STM32F4xx系列开发工具MDK5安装教程</span></h2><h3><span id="一-安装mdk5">一、安装MDK5</span></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">首先下载MDK5安装包</span><br></pre></td></tr></table></figure>
+<p><img src="/2018/09/11/KEIL5安装/1.jpg" alt><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">点击安装</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2018/09/11/KEIL5安装/2.jpg" alt><br><img src="/2018/09/11/KEIL5安装/3.jpg" alt><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">下面选择安装位置，默认安装C盘，建议更改在其他硬盘</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2018/09/11/KEIL5安装/4.jpg" alt><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">填写个人信息</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2018/09/11/KEIL5安装/5.jpg" alt><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">安装</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2018/09/11/KEIL5安装/6.jpg" alt><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">安装成功后，桌面出现下列图标</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2018/09/11/KEIL5安装/7.jpg" alt><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">最后点击 Finish 即可完成安装，随后，MDK 会自动弹出 Pack Installer 界面</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2018/09/11/KEIL5安装/8.jpg" alt><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">点击Check for Update确认更新</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2018/09/11/KEIL5安装/9.jpg" alt><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">找到STM32F4XX，未更新显示为install,点击</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2018/09/11/KEIL5安装/10.jpg" alt><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">安装完毕后</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2018/09/11/KEIL5安装/11.jpg" alt></p>
+<h3><span id="二-破解">二、破解</span></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">右键点击MDK5，选择以管理员身份运行</span><br></pre></td></tr></table></figure>
+<p><img src="/2018/09/11/KEIL5安装/12.jpg" alt><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">然后，点击：File ——License Management，调出注册管理界面</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2018/09/11/KEIL5安装/13.jpg" alt><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">从上图可以看出，MDK 此时是评估版，使用上面是有限制的，不能编译超过 32K 的代 码，需要输入注册码以后才可以正常使用。</span><br><span class="line">接下来，我们看看如何注册。首先，运行光盘 MDK5 目录下的 keygen.exe（要先解压， 如果杀毒软件误报误杀，那就先关了杀毒软件，再解压）</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2018/09/11/KEIL5安装/14.jpg" alt><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">在 keygen.exe 里面，设置 Target 为 ARM，然后拷贝 MDK License Management 界面里面的 CID 号，	到 keygen.exe 里面CID栏，点击：Generate，即可获得注册码</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2018/09/11/KEIL5安装/15.jpg" alt><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">之后，拷贝注册码到 License Management 里面，点击 Add LIC 即可完成注册</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2018/09/11/KEIL5安装/16.jpg" alt><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">如图，该软件可用到2020年6月。</span><br></pre></td></tr></table></figure></p>
+<h3><span id="三-安装jlink驱动">三、安装JLINK驱动</span></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">在初次插入JLINK时，可能会出现驱动安装不成功，导致程序无法下载到板子里，此时可以手动安装驱动</span><br><span class="line">下载该安装包，点击安装。</span><br></pre></td></tr></table></figure>
+<p><img src="/2018/09/11/KEIL5安装/34.jpg" alt><br><img src="/2018/09/11/KEIL5安装/17.jpg" alt><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">点击YES同意安装，后续点击NEXT，缺省设置安装即可</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2018/09/11/KEIL5安装/18.jpg" alt><br><img src="/2018/09/11/KEIL5安装/19.jpg" alt><br><img src="/2018/09/11/KEIL5安装/20.jpg" alt><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">安装完成后，桌面可以看到两个图标</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2018/09/11/KEIL5安装/21.jpg" alt><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">点击J_LINK,出现下列图像</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2018/09/11/KEIL5安装/22.jpg" alt><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">再次连接JLINK，点击配置。</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2018/09/11/KEIL5安装/23.jpg" alt><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">选择Device</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2018/09/11/KEIL5安装/24.jpg" alt><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">选择STM32F405RGTX</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2018/09/11/KEIL5安装/25.jpg" alt><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">再点击Debug</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2018/09/11/KEIL5安装/26.jpg" alt><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">选择J-LINK</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2018/09/11/KEIL5安装/27.jpg" alt><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">再点击Settings</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2018/09/11/KEIL5安装/28.jpg" alt><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">选择Flash Download,点击add,选择Flash Size为1M的选项</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2018/09/11/KEIL5安装/29.jpg" alt><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">配置完后点确定，即可下载程序。</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">STM32F4XX核心板</span><br></pre></td></tr></table></figure>
+<p><img src="/2018/09/11/KEIL5安装/30.jpg" alt><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">JLNK</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2018/09/11/KEIL5安装/31.jpg" alt><br><img src="/2018/09/11/KEIL5安装/32.jpg" alt><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">JINK与STM32F4XX正确连接方式：SWD与SWDIO相连，CLK与SWCLK相连，GND 与GND相连，5V连接在5V接口，如图。</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2018/09/11/KEIL5安装/33.jpg" alt></p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+    <div class="bdsharebuttonbox">
+    <a href="#" class="bds_more" data-cmd="more">分享到：</a>
+    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间">QQ空间</a>
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博">新浪微博</a>
+    <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博">腾讯微博</a>
+    <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网">人人网</a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信">微信</a>
+</div>
+<script>
+window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{"bdSize":16}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+<style>
+    .bdshare_popup_box {
+        border-radius: 4px;
+        border: #e1e1e1 solid 1px;
+    }
+    .bdshare-button-style0-16 a,
+    .bdshare-button-style0-16 .bds_more {
+        padding-left: 20px;
+        margin: 6px 10px 6px 0;
+    }
+    .bdshare_dialog_list a,
+    .bdshare_popup_list a,
+    .bdshare_popup_bottom a {
+        font-family: 'Microsoft Yahei';
+    }
+    .bdshare_popup_top {
+        display: none;
+    }
+    .bdshare_popup_bottom {
+        height: auto;
+        padding: 5px;
+    }
+</style>
+
+
+
+        </footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+    </section>
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>关注我 :</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/Leixx98" target="_blank">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="zhihu" href="https://www.zhihu.com/people/lei-xiang-xing" target="_blank">
+                        <i class="icon fa fa-zhihu"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="csdn" href="https://blog.csdn.net/qq_36854651" target="_blank">
+                        <i class="icon fa fa-csdn"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="hupu" href="https://my.hupu.com/169768324091547" target="_blank">
+                        <i class="icon fa fa-hupu"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2018/09/25/通院大三上课程设计指南/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">下一篇</strong>
+        <p class="article-nav-title">
+        
+            通院大三上课程设计指南
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/2018/08/17/三年/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">上一篇</strong>
+        <p class="article-nav-title">三年</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">最新文章</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/04/10/2019华为实习面经/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/2019/04/10/2019华为实习面经/1.jpg)" alt="2019华为实习面经" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/work/">work</a></p>
+                            <p class="item-title"><a href="/2019/04/10/2019华为实习面经/" class="title">2019华为实习面经</a></p>
+                            <p class="item-date"><time datetime="2019-04-10T03:38:38.000Z" itemprop="datePublished">2019-04-10</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/03/08/零中频正交解调幅频特性测试仪原理/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/2019/03/08/零中频正交解调幅频特性测试仪原理/1.jpg)" alt="零中频正交解调幅频特性测量原理" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/work/">work</a></p>
+                            <p class="item-title"><a href="/2019/03/08/零中频正交解调幅频特性测试仪原理/" class="title">零中频正交解调幅频特性测量原理</a></p>
+                            <p class="item-date"><time datetime="2019-03-08T06:20:38.000Z" itemprop="datePublished">2019-03-08</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/03/07/电脑简易选购指南/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/2019/03/07/电脑简易选购指南/1.jpg)" alt="电脑简易选购指南" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/life/">life</a></p>
+                            <p class="item-title"><a href="/2019/03/07/电脑简易选购指南/" class="title">电脑简易选购指南</a></p>
+                            <p class="item-date"><time datetime="2019-03-07T10:26:38.000Z" itemprop="datePublished">2019-03-07</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/09/30/9月小结/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/2018/09/30/9月小结/0.jpg)" alt="9月小结" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/life/">life</a></p>
+                            <p class="item-title"><a href="/2018/09/30/9月小结/" class="title">9月小结</a></p>
+                            <p class="item-date"><time datetime="2018-09-30T09:21:12.000Z" itemprop="datePublished">2018-09-30</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/09/25/通院大三上课程设计指南/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/2018/09/25/通院大三上课程设计指南/16.jpg)" alt="通院大三上课程设计指南" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/work/">work</a></p>
+                            <p class="item-title"><a href="/2018/09/25/通院大三上课程设计指南/" class="title">通院大三上课程设计指南</a></p>
+                            <p class="item-date"><time datetime="2018-09-25T12:02:31.000Z" itemprop="datePublished">2018-09-25</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">分类</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/life/">life</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/think/">think</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/work/">work</a><span class="category-list-count">10</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">归档</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">2</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">标签</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/funny/">funny</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/life/">life</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/love/">love</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/think/">think</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work/">work</a><span class="tag-list-count">10</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">标签云</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/Life/" style="font-size: 15px;">Life</a> <a href="/tags/funny/" style="font-size: 10px;">funny</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/life/" style="font-size: 15px;">life</a> <a href="/tags/love/" style="font-size: 12.5px;">love</a> <a href="/tags/think/" style="font-size: 17.5px;">think</a> <a href="/tags/work/" style="font-size: 20px;">work</a>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">链接</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2020 lei xx</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+        
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

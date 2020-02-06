@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    
+    <title>第四次积分赛总结 | Leixx</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="work,think">
+    
+    <meta name="description" content="第四次积分赛C题——简易幅频特性测试仪一、原理1.频率特性在任何电路中都存在着电感和电容，当电路中激励源的频率变化时，电路中的感抗、容抗将跟随频率变化，从而导致其工作状态亦跟随频率变化 。我们把电路工作状态跟随频率而变化的现象称为电路的频率特性 ， 又称频率响应 。  通常将待测的电路称为被测网络 ,利用被测网络的输入变量和输出变量之间建立的函数关系来描述被测网络 的频率特性。 我们将输出变量与">
+<meta name="keywords" content="work,think">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第四次积分赛总结">
+<meta property="og:url" content="http://yoursite.com/2018/05/22/第四次积分赛总结/index.html">
+<meta property="og:site_name" content="Leixx">
+<meta property="og:description" content="第四次积分赛C题——简易幅频特性测试仪一、原理1.频率特性在任何电路中都存在着电感和电容，当电路中激励源的频率变化时，电路中的感抗、容抗将跟随频率变化，从而导致其工作状态亦跟随频率变化 。我们把电路工作状态跟随频率而变化的现象称为电路的频率特性 ， 又称频率响应 。  通常将待测的电路称为被测网络 ,利用被测网络的输入变量和输出变量之间建立的函数关系来描述被测网络 的频率特性。 我们将输出变量与">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2018/05/22/第四次积分赛总结/1.jpg">
+<meta property="og:updated_time" content="2018-05-22T16:31:59.528Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="第四次积分赛总结">
+<meta name="twitter:description" content="第四次积分赛C题——简易幅频特性测试仪一、原理1.频率特性在任何电路中都存在着电感和电容，当电路中激励源的频率变化时，电路中的感抗、容抗将跟随频率变化，从而导致其工作状态亦跟随频率变化 。我们把电路工作状态跟随频率而变化的现象称为电路的频率特性 ， 又称频率响应 。  通常将待测的电路称为被测网络 ,利用被测网络的输入变量和输出变量之间建立的函数关系来描述被测网络 的频率特性。 我们将输出变量与">
+<meta name="twitter:image" content="http://yoursite.com/2018/05/22/第四次积分赛总结/1.jpg">
+    
+
+    
+
+    
+        <link rel="icon" href="/css/images/favicon.ico">
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.0.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+
+
+</head>
+</html>
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/">主页</a>
+                                </li>
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/categories/work">工作</a>
+                                </li>
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/categories/think">思考</a>
+                                </li>
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/categories/life">生活</a>
+                                </li>
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/categories/tag">标签</a>
+                                </li>
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/about/index.html">关于</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/work/">work</a>
+    </h1>
+</div>
+                        <div class="main-body-content">
+                            <article id="post-第四次积分赛总结" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        第四次积分赛总结
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2018/05/22/第四次积分赛总结/" class="article-date">
+            <time datetime="2018-05-22T10:26:38.000Z" itemprop="datePublished">2018-05-22</time>
+        </a>
+    </div>
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/think/">think</a>, <a class="tag-link" href="/tags/work/">work</a>
+    </div>
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p><img src="/2018/05/22/第四次积分赛总结/1.jpg" alt></p>
+<h1><span id="第四次积分赛c题简易幅频特性测试仪">第四次积分赛C题——简易幅频特性测试仪</span></h1><h2><span id="一-原理">一、原理</span></h2><h3><span id="1频率特性">1.频率特性</span></h3><p>在任何电路中都存在着电感和电容，当电路中激励源的频率变化时，电路中的感抗、容抗将跟随频率变化，从而导致其工作状态亦跟随频率变化 。我们把电路工作状态跟随频率而变化的现象称为电路的频率特性 ， 又称频率响应 。</p>
+<p><img src="/2018/05/22/第四次积分赛总结/2.jpg" alt></p>
+<p>通常将待测的电路称为被测网络 ,利用被测网络的输入变量和输出变量之间建立的函数关系来描述被测网络 的频率特性。 我们将输出变量与输入变量幅度的比值如０）A(w)＝ A0/Ａi 与 频率 Ｗ 的 函数关系称为 被测网络的幅频特性,其函数图像即为幅频特性曲线 ； 将输出变量与输入变量相位的变化与频率Ｗ的函数关系称为被测网络的相频特性 ,其函数图像即为相频特性曲线幅频特性和相频特性共同构成被测网络的频率特性 ，频率特性反映了一个被测网络对不同频率的输入信号的增益和移特性</p>
+<h3><span id="2零中频原理">2.零中频原理</span></h3><p>零中频正交解调原理就是将信号直接从高频解调到基带，不经过中频的原理，故称零中频。其原理框图如下：</p>
+<p><img src="/2018/05/22/第四次积分赛总结/3.jpg" alt></p>
+<p>首先 ，正交扫频信号源输出两路（ Ｉ 路和 Ｑ 路 ）等幅同频正交的 正弦信号分别 为 ：Acosω和Asinωt。 其 中 ，Ｉ 路信号 如Acosωt输入到线性被测网络中 ,其输出信号与输入信号相比频率不变 ，但是幅度和相位均有相应的变化 ，设被测网络输出信号的一般表达式为 ：Bcos(ωt+φ) 即经过被测网络的信号 ，幅度大小 由 A变成 了B，相 位大 小 由 ０°变成 了 φ。 因此 ，被测网络在这个频率点 的 幅频特性和相频特性为B/A和φ， 通常幅频特性常用对数形式表出即为 ；20㏒（B/A。然而 ， 由上图可知 ，系统仅仅只得到 了 两路 （ Ｉ 路和 Ｑ 路 ） ＡＤＣ 值 ，怎 么通过这两 个直流 电压值算出被测 网络在Ｗ这个频率点频率特性呢 ？ 我们不妨来做 一下理论推导 ， 根据积化和差公式可知</p>
+<p><img src="/2018/05/22/第四次积分赛总结/4.jpg" alt></p>
+<p>其 中 ,式 （２ － １ ５) （２ － １ ６ ）所计算的结果为乘法器１和乘法器２的输出信号，可看出其输出 信号是一个在直流偏压上的倍频信号，且直流偏压与幅度β和 φ有关 。两个乘法器输出通过理想的低 通滤波器 （滤 除交流信号 ）后 ，其输出倍频信号被滤除 ，仅留下两路直流偏压分别 为AB(cosφ)/2和-AB(sinφ)/2。最后，经过 ＡＤＣ 被 ＭＣＵ得到 ，假设得到 两路 （ Ｉ 路 和 Ｑ 路 ） 直流电压分别为DＣ１和ＤＣ ２ ， 在不考虑测量误差的理想情况下 ， 即有：</p>
+<p><img src="/2018/05/22/第四次积分赛总结/5.jpg" alt></p>
+<p>在 ＭＣＵ 中 ，可 利用 式 （２ － １ ７巧ｎ （２ － １ ８）反推出被测网络的幅频特性20㏒（B/A）=20㏒（2*（DC1²+DC2²）½）相频特性如下： </p>
+<p><img src="/2018/05/22/第四次积分赛总结/6.jpg" alt></p>
+<h2><span id="二-系统方案">二、系统方案</span></h2><h3><span id="1正交扫频信号源">1.正交扫频信号源</span></h3><p>正交扫频信号源采用ADI公司出品的AD9959数字频率合成器。该芯片含有四个直接数字频率合成器（DDS），提供各通道独立的频率、相位和振幅控制。同时还支持16级频率、相位、振幅调制（FSK、PSK、ASK）调制。</p>
+<p>使用TI公司出品的TM4123GH6PM作为控制器控制AD9959产生两路正交信号，频率范围为10k~4M.幅度为400mV。具有点频和扫频功能。</p>
+<p>DDS信号源后接一个5倍放大器，使信号稳定在2Vpp。经检测，10k~4M的宽带在接近4M时有小幅度的衰减。</p>
+<h3><span id="2被测网络">2.被测网络</span></h3><p>被测网络由一个50kHz高通滤波器，300kHz低通滤波器组成。在低通滤波器输入端和下一阶乘法器均做了50欧姆阻抗匹配。实测高通滤波器截至频率50.2kHz,低通滤波器截至频率308kHz.</p>
+<h3><span id="3乘法器">3.乘法器</span></h3><p>乘法器采用ADI公司出品的AD835乘法器，该芯片电路简单，可靠。乘法器公式为：Y=X*Y+Z。在本次系统中调节乘法器电路使乘法器叠加一个400mV左右的直流，使得最终滤出的两个直流均为正电压，避免烧坏AD。</p>
+<h3><span id="4低通滤波器">4.低通滤波器</span></h3><p>两个低通滤波器截至频率为10HZ，可保证滤出交流信号中的直流。</p>
+<h3><span id="5adc">5.ADC</span></h3><p>ADC采用TI公司出品的ADS1115，16位低速高精度AD。共4路通道，2，3通道可配置为差分输入通道。最高采样速率820SPS。</p>
+<h3><span id="6显示">6.显示</span></h3><p>显示采用淘晶驰出品的串口屏，屏幕可绘制，使用串口发送命令控制。</p>
+<h3><span id="7算法框图">7.算法框图</span></h3><p><img src="/2018/05/22/第四次积分赛总结/7.jpg" alt><br><img src="/2018/05/22/第四次积分赛总结/8.jpg" alt></p>
+<h2><span id="三-遇到的问题">三、遇到的问题</span></h2><ul>
+<li>乘法器直流偏置不稳定，放大后会出现几十到一百多毫伏的浮动<br>解决方案：在每次画完一次频率特性图后，重新校准一次直流偏置。校准方法：将输出信号置0，检测输出直流，将该直流设为乘法器的直流偏置。</li>
+<li>采到的直流不准确，因为最初版的低通滤波器RC常数过大，导致改变频率后，需要0.5s时间才能使直流稳定，导致采样不准确。<br>解决方案：修改低通滤波器时间常数，使得低通滤波器时延减小，同时延缓采样时间，使采样准确</li>
+<li>使用串口中断单片机卡死，因为代码中大量使用到了串口3发送函数，当接收中断与发送函数冲突，容易引起串口溢出中断，导致程序卡死<br>解决方案：正确解决方案应为，清除错误溢出标志位，但时间紧急，取消了串口中断，放在了主函数中。</li>
+<li>相频曲线不稳定，因为取10k频率点为初始相位，该频点属于衰减点，导致最终直流不稳定，相位不稳定。<br>解决方案：选取稳定的100k频点为相位参考点。</li>
+</ul>
+<h2><span id="四-最终结果">四、最终结果</span></h2><ul>
+<li>实现了点频测量衰减和相位</li>
+<li>实现了扫频画图</li>
+</ul>
+
+        </div>
+        <footer class="article-footer">
+            
+
+    <div class="bdsharebuttonbox">
+    <a href="#" class="bds_more" data-cmd="more">分享到：</a>
+    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间">QQ空间</a>
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博">新浪微博</a>
+    <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博">腾讯微博</a>
+    <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网">人人网</a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信">微信</a>
+</div>
+<script>
+window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{"bdSize":16}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+<style>
+    .bdshare_popup_box {
+        border-radius: 4px;
+        border: #e1e1e1 solid 1px;
+    }
+    .bdshare-button-style0-16 a,
+    .bdshare-button-style0-16 .bds_more {
+        padding-left: 20px;
+        margin: 6px 10px 6px 0;
+    }
+    .bdshare_dialog_list a,
+    .bdshare_popup_list a,
+    .bdshare_popup_bottom a {
+        font-family: 'Microsoft Yahei';
+    }
+    .bdshare_popup_top {
+        display: none;
+    }
+    .bdshare_popup_bottom {
+        height: auto;
+        padding: 5px;
+    }
+</style>
+
+
+
+        </footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+    </section>
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>关注我 :</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/Leixx98" target="_blank">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="zhihu" href="https://www.zhihu.com/people/lei-xiang-xing" target="_blank">
+                        <i class="icon fa fa-zhihu"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="csdn" href="https://blog.csdn.net/qq_36854651" target="_blank">
+                        <i class="icon fa fa-csdn"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="hupu" href="https://my.hupu.com/169768324091547" target="_blank">
+                        <i class="icon fa fa-hupu"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2018/07/28/18年省赛/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">下一篇</strong>
+        <p class="article-nav-title">
+        
+            18年省赛
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/2018/05/12/纪念5-12大地震10周年/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">上一篇</strong>
+        <p class="article-nav-title">纪念5.12大地震10周年</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">最新文章</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/04/10/2019华为实习面经/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/2019/04/10/2019华为实习面经/1.jpg)" alt="2019华为实习面经" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/work/">work</a></p>
+                            <p class="item-title"><a href="/2019/04/10/2019华为实习面经/" class="title">2019华为实习面经</a></p>
+                            <p class="item-date"><time datetime="2019-04-10T03:38:38.000Z" itemprop="datePublished">2019-04-10</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/03/08/零中频正交解调幅频特性测试仪原理/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/2019/03/08/零中频正交解调幅频特性测试仪原理/1.jpg)" alt="零中频正交解调幅频特性测量原理" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/work/">work</a></p>
+                            <p class="item-title"><a href="/2019/03/08/零中频正交解调幅频特性测试仪原理/" class="title">零中频正交解调幅频特性测量原理</a></p>
+                            <p class="item-date"><time datetime="2019-03-08T06:20:38.000Z" itemprop="datePublished">2019-03-08</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/03/07/电脑简易选购指南/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/2019/03/07/电脑简易选购指南/1.jpg)" alt="电脑简易选购指南" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/life/">life</a></p>
+                            <p class="item-title"><a href="/2019/03/07/电脑简易选购指南/" class="title">电脑简易选购指南</a></p>
+                            <p class="item-date"><time datetime="2019-03-07T10:26:38.000Z" itemprop="datePublished">2019-03-07</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/09/30/9月小结/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/2018/09/30/9月小结/0.jpg)" alt="9月小结" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/life/">life</a></p>
+                            <p class="item-title"><a href="/2018/09/30/9月小结/" class="title">9月小结</a></p>
+                            <p class="item-date"><time datetime="2018-09-30T09:21:12.000Z" itemprop="datePublished">2018-09-30</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/09/25/通院大三上课程设计指南/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/2018/09/25/通院大三上课程设计指南/16.jpg)" alt="通院大三上课程设计指南" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/work/">work</a></p>
+                            <p class="item-title"><a href="/2018/09/25/通院大三上课程设计指南/" class="title">通院大三上课程设计指南</a></p>
+                            <p class="item-date"><time datetime="2018-09-25T12:02:31.000Z" itemprop="datePublished">2018-09-25</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">分类</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/life/">life</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/think/">think</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/work/">work</a><span class="category-list-count">10</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">归档</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">2</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">标签</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/funny/">funny</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/life/">life</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/love/">love</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/think/">think</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work/">work</a><span class="tag-list-count">10</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">标签云</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/Life/" style="font-size: 15px;">Life</a> <a href="/tags/funny/" style="font-size: 10px;">funny</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/life/" style="font-size: 15px;">life</a> <a href="/tags/love/" style="font-size: 12.5px;">love</a> <a href="/tags/think/" style="font-size: 17.5px;">think</a> <a href="/tags/work/" style="font-size: 20px;">work</a>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">链接</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2020 lei xx</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+        
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
