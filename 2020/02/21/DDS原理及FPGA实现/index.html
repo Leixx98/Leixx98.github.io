@@ -3,26 +3,26 @@
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
     
-    <title>零中频正交解调幅频特性测量原理 | Leixx</title>
+    <title>DDS原理及FPGA实现 | Leixx</title>
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
-        <meta name="keywords" content="work,think">
+        <meta name="keywords" content="work">
     
-    <meta name="description" content="零中频正交解调幅频特性测量一、频率特性因为电容和电感的存在，所以当激励源频率变化时，电路的感抗和容抗都将随频率变化，从而导致其工作频率跟随频率变化。幅频特性：幅度的比值A(ω)=Ao/Ai与频率ω的函数关系。相频特性：φ(ω)=φ₂-φ₁与频率ω的函数关系。 二、测量原理主要有两种：动态法和稳态法。动态法：对被测网络冲激响应h(t)进行傅里叶变换，得到被测网络的频域表达式，从而算出其频率特性的方">
-<meta name="keywords" content="work,think">
+    <meta name="description" content="DDS原理及FPGA实现将一个按一定速度沿x轴行进，同时使一个圆的半径按一定频率在圆上滑动，最后留下的痕迹就是一个正余弦波。 DDS全称直接数字频率合成（Direct Digital Synthesis）,简单来讲，分以下几步。 1.抽样既然是数字频率合成，那么从模拟信号变成数字信号的过程必不可少。这个过程就是抽样的过程。根据奈奎斯特采样定律，我们在采样过程要保留源信号的信息，那么采样率至少为源">
+<meta name="keywords" content="work">
 <meta property="og:type" content="article">
-<meta property="og:title" content="零中频正交解调幅频特性测量原理">
-<meta property="og:url" content="http://yoursite.com/2019/03/08/零中频正交解调幅频特性测试仪原理/index.html">
+<meta property="og:title" content="DDS原理及FPGA实现">
+<meta property="og:url" content="http://yoursite.com/2020/02/21/DDS原理及FPGA实现/index.html">
 <meta property="og:site_name" content="Leixx">
-<meta property="og:description" content="零中频正交解调幅频特性测量一、频率特性因为电容和电感的存在，所以当激励源频率变化时，电路的感抗和容抗都将随频率变化，从而导致其工作频率跟随频率变化。幅频特性：幅度的比值A(ω)=Ao/Ai与频率ω的函数关系。相频特性：φ(ω)=φ₂-φ₁与频率ω的函数关系。 二、测量原理主要有两种：动态法和稳态法。动态法：对被测网络冲激响应h(t)进行傅里叶变换，得到被测网络的频域表达式，从而算出其频率特性的方">
+<meta property="og:description" content="DDS原理及FPGA实现将一个按一定速度沿x轴行进，同时使一个圆的半径按一定频率在圆上滑动，最后留下的痕迹就是一个正余弦波。 DDS全称直接数字频率合成（Direct Digital Synthesis）,简单来讲，分以下几步。 1.抽样既然是数字频率合成，那么从模拟信号变成数字信号的过程必不可少。这个过程就是抽样的过程。根据奈奎斯特采样定律，我们在采样过程要保留源信号的信息，那么采样率至少为源">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2019/03/08/零中频正交解调幅频特性测试仪原理/1.jpg">
-<meta property="og:updated_time" content="2019-03-08T06:44:32.243Z">
+<meta property="og:image" content="http://yoursite.com/2020/02/21/DDS原理及FPGA实现/0.png">
+<meta property="og:updated_time" content="2020-02-22T01:42:29.528Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="零中频正交解调幅频特性测量原理">
-<meta name="twitter:description" content="零中频正交解调幅频特性测量一、频率特性因为电容和电感的存在，所以当激励源频率变化时，电路的感抗和容抗都将随频率变化，从而导致其工作频率跟随频率变化。幅频特性：幅度的比值A(ω)=Ao/Ai与频率ω的函数关系。相频特性：φ(ω)=φ₂-φ₁与频率ω的函数关系。 二、测量原理主要有两种：动态法和稳态法。动态法：对被测网络冲激响应h(t)进行傅里叶变换，得到被测网络的频域表达式，从而算出其频率特性的方">
-<meta name="twitter:image" content="http://yoursite.com/2019/03/08/零中频正交解调幅频特性测试仪原理/1.jpg">
+<meta name="twitter:title" content="DDS原理及FPGA实现">
+<meta name="twitter:description" content="DDS原理及FPGA实现将一个按一定速度沿x轴行进，同时使一个圆的半径按一定频率在圆上滑动，最后留下的痕迹就是一个正余弦波。 DDS全称直接数字频率合成（Direct Digital Synthesis）,简单来讲，分以下几步。 1.抽样既然是数字频率合成，那么从模拟信号变成数字信号的过程必不可少。这个过程就是抽样的过程。根据奈奎斯特采样定律，我们在采样过程要保留源信号的信息，那么采样率至少为源">
+<meta name="twitter:image" content="http://yoursite.com/2020/02/21/DDS原理及FPGA实现/0.png">
     
 
     
@@ -149,14 +149,14 @@
     </h1>
 </div>
                         <div class="main-body-content">
-                            <article id="post-零中频正交解调幅频特性测试仪原理" class="article article-single article-type-post" itemscope itemprop="blogPost">
+                            <article id="post-DDS原理及FPGA实现" class="article article-single article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
             <header class="article-header">
                 
     
         <h1 class="article-title" itemprop="name">
-        零中频正交解调幅频特性测量原理
+        DDS原理及FPGA实现
         </h1>
     
 
@@ -166,28 +166,53 @@
             <div class="article-meta">
                 
     <div class="article-date">
-        <a href="/2019/03/08/零中频正交解调幅频特性测试仪原理/" class="article-date">
-            <time datetime="2019-03-08T06:20:38.000Z" itemprop="datePublished">2019-03-08</time>
+        <a href="/2020/02/21/DDS原理及FPGA实现/" class="article-date">
+            <time datetime="2020-02-21T11:51:20.000Z" itemprop="datePublished">2020-02-21</time>
         </a>
     </div>
 
                 
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/think/">think</a>, <a class="tag-link" href="/tags/work/">work</a>
+        <a class="tag-link" href="/tags/work/">work</a>
     </div>
 
             </div>
         
         
         <div class="article-entry" itemprop="articleBody">
-            <p><img src="/2019/03/08/零中频正交解调幅频特性测试仪原理/1.jpg" alt></p>
-<h1><span id="零中频正交解调幅频特性测量">零中频正交解调幅频特性测量</span></h1><h2><span id="一-频率特性">一、频率特性</span></h2><p>因为电容和电感的存在，所以当激励源频率变化时，电路的感抗和容抗都将随频率变化，从而导致其工作频率跟随频率变化。<br>幅频特性：幅度的比值A(ω)=Ao/Ai与频率ω的函数关系。<br>相频特性：φ(ω)=φ₂-φ₁与频率ω的函数关系。</p>
-<h2><span id="二-测量原理">二、测量原理</span></h2><p>主要有两种：<strong>动态法</strong>和<strong>稳态法</strong>。<br>动态法：对被测网络冲激响应h(t)进行傅里叶变换，得到被测网络的频域表达式，从而算出其频率特性的方法。<br>稳态法：利用扫频技术检测被测网络在每个频率点的输出信号和输入信号的幅度比和相位差来确定其幅频和相频特性。</p>
-<h2><span id="三-不同方案利弊分析">三、不同方案利弊分析</span></h2><h3><span id="1二极管检波和平衡鉴相原理">1.二极管检波和平衡鉴相原理</span></h3><p><img src="/2019/03/08/零中频正交解调幅频特性测试仪原理/2.jpg" alt></p>
-<h4><span id="1二极管检波原理">(1).二极管检波原理</span></h4><p><img src="/2019/03/08/零中频正交解调幅频特性测试仪原理/3.jpg" alt><br>如上图，检波由两部分构成：晶体二极管D（非线性器件）和RC低通滤波器。当检波器输入端信号Ui为零时，其各处电压均为零，检波二极管D处于截止状态。当检波器输入端信号Ui为Acosωt时，由于电容器的交流阻抗小，Ui基本上被加到二极管D的两端。当Ui达到正半周期峰值时，二极管D正向导通，这时电流i通过电容器的充电，由于电流很大，电容器上的电压在很短时间接近信号峰值。在该信号建立起来之后，随着Ui幅度减小，二极管D负极电压高于正极，此时二极管反向截止，电容器就会通过电阻R进行放电，由于放电常数τ=RC远大于Ui的周期，因此电容器上电压下降缓慢。当电容器上电压还没来得及下降时，第二个周期的Ui又超过了电容器上的电压而使二极管D导通，再次向电容器充电，使得电容器上电压迅速回到Ui峰值。经过不断重复，就得到了稳定的输出电压。<br>因为二极管检波至少应包含<strong>一个峰值周期</strong>，因此测量速度随着网络带宽和激励频率的变化而改变。另外，检波二极管的<strong>带宽</strong>限制使得检波输出电压的非线性变化，并且随着信号频率的增大，检波误差也会相应增大，这些都影响了幅频特性测量精度。</p>
-<h4><span id="2二极管平衡鉴相原理">(2).二极管平衡鉴相原理</span></h4><p><img src="/2019/03/08/零中频正交解调幅频特性测试仪原理/4.jpg" alt><br>如上图，二极管平衡鉴相电路由3dB、90度功率分配耦合器、两个相同的二极管检波器组成，其工作原理如下：<br><img src="/2019/03/08/零中频正交解调幅频特性测试仪原理/5.jpg" alt><br><img src="/2019/03/08/零中频正交解调幅频特性测试仪原理/6.jpg" alt><br>由上式可推出相位与输出电压的关系，测量输出电压即可以得到相位差φ。<br>因为其实质仍然是建立在二极管检波的基础上，因此二极管检波的缺陷在平衡鉴相原理中同样存在。除此之外，由于二极管平衡鉴相原理是将相位差转换为输出电压的幅度，若两个二极管存在较大差异导致检波电路不配对，则电路会因为失去平衡而造成较大的鉴相误差，降低相频特性测量精度。</p>
-<h3><span id="2零中频正交解调测量原理">2.零中频正交解调测量原理</span></h3><p>零中频正交解调原理就是将信号直接从高频解调到基带，不经过中频解调的原理。该原理早在二十世纪三十年代就应用在无线通信领域，最具代表是零中频接收机，其原理框图如下：<br><img src="/2019/03/08/零中频正交解调幅频特性测试仪原理/7.jpg" alt><br>发展到现在，零中频正交解调更是应用到了电子测量领域，利用零中频解调原理设计一个简易频率特性测试仪便是其中一个应用。其原理框图如下：<br><img src="/2019/03/08/零中频正交解调幅频特性测试仪原理/8.jpg" alt><br>首先，正交扫频信号源输出两路（I路和Q路）等幅同频正交的正弦信号分别为：Acosωt和Asinωt。其中，I路信号Acosωt输入到线性被测网络中，其输出信号与输入信号相比频率不变，但是幅度和相位均有相应的变化，设被测网络输出信号的一般表达式为：Bcos(ωt+φ)，即通过被测网络的信号，幅度大小由A变成了B，相位大小由0°变成了φ。因此，被测网络在$ω$这个频率点的幅频特性和相频特性为B/A和φ，通常幅频特性用对数形式表达，即为：20㏒(B/A)$。但由上图可知，我们只得到了两路（I路和Q路）的直流电压值，怎么推算出频率特性呢。公式如下：<br><img src="/2019/03/08/零中频正交解调幅频特性测试仪原理/9.jpg" alt><br>显然，经过低通滤波后得到的两路直流偏压就是$\frac{AB}{2}cosφ$和$-\frac{AB}{2}sinφ$。令这个直流偏压分别为DC1和DC2，则幅频特性可表示为：<br><img src="/2019/03/08/零中频正交解调幅频特性测试仪原理/10.jpg" alt><br>相频特性表示为：<br><img src="/2019/03/08/零中频正交解调幅频特性测试仪原理/11.jpg" alt></p>
+            <p><img src="/2020/02/21/DDS原理及FPGA实现/0.png" alt></p>
+<h1><span id="dds原理及fpga实现">DDS原理及FPGA实现</span></h1><p>将一个按一定速度沿x轴行进，同时使一个圆的半径按一定频率在圆上滑动，最后留下的痕迹就是一个正余弦波。</p>
+<p>DDS全称直接数字频率合成（Direct Digital Synthesis）,简单来讲，分以下几步。</p>
+<h3><span id="1抽样">1.抽样</span></h3><p>既然是<strong>数字</strong>频率合成，那么从模拟信号变成数字信号的过程必不可少。这个过程就是<strong>抽样</strong>的过程。根据奈奎斯特采样定律，我们在采样过程要保留源信号的信息，那么采样率至少为源信号频率的两倍。换句话说，我们想要在数字合成出来的波形还能还原原始信号的信息的话，我们一个周期中至少要有两个以上的“点”。</p>
+<p>但一般来讲，为了波形的完整，我们一个周期中最少保留的点还会多一些。如果假设一个周期最小4个点，采样频率为为100MSPS，那我们可以还原的源信号的频率最大为25M</p>
+<p>我们通常对一个周期采样的点数为2^N个，在这里，我采样为2的8次方，即256个。</p>
+<p>采样的过程可以通过matlab进行模拟，设置好采样的位宽和深度便可以生成采样数据。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">width=10;   %rom的位宽</span><br><span class="line">depth=1024; %rom的深度</span><br><span class="line">x=linspace(0,2*pi,depth);  %在一个周期内产生1024个采样点</span><br><span class="line">y_sin=sin(x);   %生成正弦数据</span><br><span class="line">y_sin=round(y_sin*(2^(width-1)-1))+2^(width-1)-1;  %将余弦数据全部转换为整数</span><br><span class="line"></span><br><span class="line">fid=fopen(&apos;C:\Users\Leixx\Desktop\sin_txt.txt&apos;,&apos;w&apos;);  %创建.coe文件</span><br><span class="line">fprintf(fid,&apos;%d;\n&apos;,y_sin);  %向.txt文件中写入数据</span><br><span class="line">fclose(fid);  %关闭.txt文件</span><br></pre></td></tr></table></figure></p>
+<p>得到的部分采样数据如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">511;</span><br><span class="line">514;</span><br><span class="line">517;</span><br><span class="line">520;</span><br><span class="line">524;</span><br><span class="line">527;</span><br><span class="line">530;</span><br><span class="line">533;</span><br><span class="line">536;</span><br><span class="line">539;</span><br><span class="line">542;</span><br><span class="line">545;</span><br><span class="line">549;</span><br><span class="line">552;</span><br><span class="line">555;</span><br><span class="line">558;</span><br><span class="line">561;</span><br><span class="line">564;</span><br><span class="line">567;</span><br><span class="line">570;</span><br><span class="line">574;</span><br><span class="line">577;</span><br><span class="line">580;</span><br><span class="line">583;</span><br><span class="line">586;</span><br><span class="line">589;</span><br><span class="line">592;</span><br><span class="line">595;</span><br><span class="line">598;</span><br><span class="line">602;</span><br><span class="line">605;</span><br><span class="line">608;</span><br><span class="line">611;</span><br><span class="line">614;</span><br><span class="line">617;</span><br><span class="line">620;</span><br><span class="line">623;</span><br><span class="line">626;</span><br><span class="line">629;</span><br><span class="line">632;</span><br><span class="line">635;</span><br><span class="line">638;</span><br><span class="line">641;</span><br><span class="line">644;</span><br><span class="line">647;</span><br><span class="line">650;</span><br><span class="line">653;</span><br><span class="line">656;</span><br></pre></td></tr></table></figure></p>
+<h3><span id="2合成">2.合成</span></h3><p>DDS技术的核心，简单来说就是将我们的抽样数据还原成模拟信号。还原的方式和文章讲到的一样：<strong>以一定的频率将抽样数据依次输出，就可以还原波形。</strong></p>
+<p>假设，以100M的频率输出我们的1024个抽样数据，则将会得到一个频率为<br>$$<br>fout=100M/1024=97KHZ<br>$$<br>的正弦波。这就达到了最初的信号输出。</p>
+<h5><span id="那如何调频呢">那如何调频呢？</span></h5><p>调频的方案有两种：一种是改变我们的时钟频率，将我们读取抽样数据的速度变快或者变慢，这样就可以改变频率。这种方法对于当下很多开发板固定的晶振频率来说比较难以实现。</p>
+<p>另一种方案就是减少我们输出的抽样数据，输出的抽样数据越少，按照上面的公式，频率便会越高。</p>
+<p>比如说，我们最开始查数据是按照<strong>依次加一</strong>的方式，那我们改成<strong>依次加二</strong>，显然，这样做之后，输出频率便会提高。但也会带来一个问题，我们输出的点数少了，那么点与点之间不再<strong>平滑</strong>，输出的波形会变得<strong>阶梯化</strong>。</p>
+<p>显然加一会得到一个频率，加二会得到另一个频率，但这两个频率都不是我想要的怎么办？</p>
+<h5><span id="如何精准调频">如何精准调频？</span></h5><p>假设我们需要得到一个频率很低的信号，1KHZ，而我们的时钟频率为100M，我们在一个周期内输出1024个点也达不到这样的频率。因此我们就需要在输出的每个数据之间进行等待，可以通过设置计数器来解决这个问题。为了使输出的信号尽可能的低，我们设置一个32位的累加器。将高10位作为查表的地址。对于1KHZ，有<br>$$<br>\frac{fout}{fword}=\frac{fclk}{2^{32}}<br>$$<br>$$<br>fword=\frac{2^{32}*fout}{fclk}<br>$$<br>所以，累加值$fword$为4295。</p>
+<p>其余频率对应的累加值均可以按此公式计算。</p>
+<h5><span id="如何解决阶梯化">如何解决阶梯化？</span></h5><p>从数字上来看，波形变得阶梯化是因为我们输出的抽样数据减少，点与点之间不再平滑。但是从另一个角度理解，波形变得阶梯化的原因是因为叠加了其他<strong>杂波</strong></p>
+<p>我们简单地波形变得阶梯化理解为趋近于方波。下图是方波的合成。<br><img src="/2020/02/21/DDS原理及FPGA实现/1.png" alt><br>由方波的傅里叶级展开式<br>$$<br>\frac{4A_{MAX}}{\pi}\sum_{i=1}^\infty\frac{sin((2n-1)\omega t)}{2n-1} \qquad n=1,2,3…<br>$$<br>可以得出，方波是由无数个奇次谐波叠加起来的，频率为2n-1倍，幅度为$\frac{4A_{MAX}}{(2n-1)\pi}$。</p>
+<p>因此，若我们的波形也是叠加了高频的谐波导致波形阶梯化，那么就通过<strong>低通滤波器</strong>来滤除高频谐波，得到平滑的波形。</p>
+<p>DDS的原理图如下：<br><img src="/2020/02/21/DDS原理及FPGA实现/2.png" alt></p>
+<h3><span id="3实现">3.实现</span></h3><p>基于FPGA的DDS，就是按照上面的原理来实现的。</p>
+<h5><span id="1储存波形">（1）储存波形</span></h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">reg [9:0] wave_sin_buf;</span><br><span class="line">always @(*) begin</span><br><span class="line">	case (addr)</span><br><span class="line">		8&apos;d0 : begin wave_sin_buf&lt;=511; end</span><br><span class="line">		8&apos;d1 : begin wave_sin_buf&lt;=514; end</span><br><span class="line">		8&apos;d2 : begin wave_sin_buf&lt;=517; end</span><br><span class="line">		8&apos;d3 : begin wave_sin_buf&lt;=520; end</span><br><span class="line">		8&apos;d4 : begin wave_sin_buf&lt;=524; end</span><br><span class="line">		8&apos;d5 : begin wave_sin_buf&lt;=527; end</span><br><span class="line">		8&apos;d6 : begin wave_sin_buf&lt;=530; end</span><br><span class="line">		8&apos;d7 : begin wave_sin_buf&lt;=533; end</span><br><span class="line">		8&apos;d8 : begin wave_sin_buf&lt;=536; end</span><br><span class="line">		8&apos;d9 : begin wave_sin_buf&lt;=539; end</span><br><span class="line">		8&apos;d10 : begin wave_sin_buf&lt;=542; end</span><br><span class="line">		8&apos;d11 : begin wave_sin_buf&lt;=545; end</span><br><span class="line">		8&apos;d12 : begin wave_sin_buf&lt;=549; end</span><br><span class="line">		8&apos;d13 : begin wave_sin_buf&lt;=552; end</span><br><span class="line">		8&apos;d14 : begin wave_sin_buf&lt;=555; end</span><br><span class="line">		8&apos;d15 : begin wave_sin_buf&lt;=558; end</span><br><span class="line">		8&apos;d16 : begin wave_sin_buf&lt;=561; end</span><br><span class="line">		8&apos;d17 : begin wave_sin_buf&lt;=564; end</span><br></pre></td></tr></table></figure>
+<p>我这里只储存了256个数据，至于原因，后面会讲到。</p>
+<h5><span id="2累加">（2）累加</span></h5><p>设置一个32位相位控制字和频率控制字，进行累加。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">always @(posedge clk_165m or negedge rst_n) begin</span><br><span class="line">    if (!rst_n) begin</span><br><span class="line">        addr_r0 &lt;= 0;</span><br><span class="line">        addr_r1 &lt;= 0;     </span><br><span class="line">    end</span><br><span class="line">    else begin</span><br><span class="line">        addr_r0 &lt;= addr_r0 + fre_word;  //N位累加器</span><br><span class="line">        addr_r1 &lt;= addr_r0 + pha_word;  //N位寄存器，带相位偏移    </span><br><span class="line">    end</span><br><span class="line">end</span><br></pre></td></tr></table></figure></p>
+<h5><span id="3查表">（3）查表</span></h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">/////查表，按照不同的相位////////</span><br><span class="line">always @(*) begin</span><br><span class="line">    case (addr_cache[9:8])</span><br><span class="line">        2&apos;b00:begin addr_r&lt;=addr_cache[7:0]; end</span><br><span class="line">        2&apos;b01:begin addr_r&lt;=addr_cache[7:0]^8&apos;b1111_1111; end</span><br><span class="line">        //异或可以求得原值的8位补值（原值与现值相加得到256）</span><br><span class="line">        2&apos;b10:begin addr_r&lt;=addr_cache[7:0]; end</span><br><span class="line">        2&apos;b11:begin addr_r&lt;=addr_cache[7:0]^8&apos;b1111_1111; end </span><br><span class="line">        default: begin addr_r &lt;= 8&apos;d0; end</span><br><span class="line">    endcase</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>这里我只储存了2^8个波形数据，是为了节省寄存器资源。因为一个周期的正弦波的四个相位实际上数据是有关联的，知道第一相位的数据，便可<strong>推导出另外三个相位的数据</strong>。</p>
+<p>代码中，00表示第一相位，此时按照正常的查表顺序即可。</p>
+<p>01表示第二相位，此时，查表的顺序应当是<strong>2^8-地址值</strong>。但实际上这个减法的操作就是异或的操作。</p>
+<p>相减后，地址值8位中原本的“1”变为0，原本的“0”变为1，正好和异或的原理相同。这里为了方便，就直接写了异或。实际上写256-addr_cache[7:0]也是一个效果。</p>
+<p>其余两个相位，查表的方式类似。</p>
+<h5><span id="4转换">（4）转换</span></h5><p>因为我这里的256个数据是第一相位的，而第三第四相位的数据是等于2^10减去第一相位的值，因此这里需要将输出的数据转换一下。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">reg [9:0]dac_data_r;</span><br><span class="line">always @(*) begin</span><br><span class="line">	case (addr_cache[9]) </span><br><span class="line">	    1&apos;b0    :   begin dac_data_r &lt;= wave_sin_buf; end</span><br><span class="line">	    1&apos;b1    :   begin dac_data_r &lt;= wave_sin_buf^10&apos;b11_1111_1111;  end</span><br><span class="line">	    default :   begin dac_data_r &lt;= 10&apos;d0; end</span><br><span class="line">	endcase</span><br><span class="line">end</span><br></pre></td></tr></table></figure></p>
+<h5><span id="5测试">（5）测试</span></h5><p>通过串口分别发送01999b60和031a5f60，由上面公式<br>$$<br>\frac{fout}{fword}=\frac{fclk}{2^{32}}<br>$$<br>可以算出分别是1M和2M的频率控制字<br><img src="/2020/02/21/DDS原理及FPGA实现/3.JPG" alt><br><img src="/2020/02/21/DDS原理及FPGA实现/6.JPG" alt><br><img src="/2020/02/21/DDS原理及FPGA实现/4.jpg" alt><br><img src="/2020/02/21/DDS原理及FPGA实现/5.jpg" alt><br>以上便是DDS的FPGA实现。</p>
 
         </div>
         <footer class="article-footer">
@@ -285,20 +310,10 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
         
 <nav id="article-nav">
     
-        <a href="/2019/04/10/2019华为实习面经/" id="article-nav-newer" class="article-nav-link-wrap">
-        <strong class="article-nav-caption">下一篇</strong>
-        <p class="article-nav-title">
-        
-            2019华为实习面经
-        
-        </p>
-        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
-    </a>
     
-    
-        <a href="/2019/03/07/电脑简易选购指南/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/2020/02/19/vivadoIP核DDS使用及注意/" id="article-nav-older" class="article-nav-link-wrap">
         <strong class="article-nav-caption">上一篇</strong>
-        <p class="article-nav-title">电脑简易选购指南</p>
+        <p class="article-nav-title">vivadoIP核DDS使用及注意</p>
         <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
         </a>
     
