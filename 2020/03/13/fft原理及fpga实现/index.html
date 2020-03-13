@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    
+    <title>fft原理及fpga实现 | Leixx</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="work">
+    
+    <meta name="description" content="1024点fft原理及fpga实现关于傅里叶变换的原理，可以参考以下的博文：如何理解傅里叶变换公式. FFT即快速傅里叶变换，是有限长序列作离散傅里叶变换（DFT）的快速算法。 DFT公式为$$X[k]=\sum_{n=0}^{N-1}x[n]e^{-j2\pi k\frac{n}{N}} \quad \quad 0\leq n \leq N-1$$令$W_N=e^{\frac{-j2\pi }">
+<meta name="keywords" content="work">
+<meta property="og:type" content="article">
+<meta property="og:title" content="fft原理及fpga实现">
+<meta property="og:url" content="http://yoursite.com/2020/03/13/fft原理及fpga实现/index.html">
+<meta property="og:site_name" content="Leixx">
+<meta property="og:description" content="1024点fft原理及fpga实现关于傅里叶变换的原理，可以参考以下的博文：如何理解傅里叶变换公式. FFT即快速傅里叶变换，是有限长序列作离散傅里叶变换（DFT）的快速算法。 DFT公式为$$X[k]=\sum_{n=0}^{N-1}x[n]e^{-j2\pi k\frac{n}{N}} \quad \quad 0\leq n \leq N-1$$令$W_N=e^{\frac{-j2\pi }">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2020/03/13/fft原理及fpga实现/0.png">
+<meta property="og:updated_time" content="2020-03-13T06:25:08.148Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="fft原理及fpga实现">
+<meta name="twitter:description" content="1024点fft原理及fpga实现关于傅里叶变换的原理，可以参考以下的博文：如何理解傅里叶变换公式. FFT即快速傅里叶变换，是有限长序列作离散傅里叶变换（DFT）的快速算法。 DFT公式为$$X[k]=\sum_{n=0}^{N-1}x[n]e^{-j2\pi k\frac{n}{N}} \quad \quad 0\leq n \leq N-1$$令$W_N=e^{\frac{-j2\pi }">
+<meta name="twitter:image" content="http://yoursite.com/2020/03/13/fft原理及fpga实现/0.png">
+    
+
+    
+
+    
+        <link rel="icon" href="/css/images/favicon.ico">
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.0.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+
+
+</head>
+</html>
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/">主页</a>
+                                </li>
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/categories/work">工作</a>
+                                </li>
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/categories/think">思考</a>
+                                </li>
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/categories/life">生活</a>
+                                </li>
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/categories/tag">标签</a>
+                                </li>
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/about/index.html">关于</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/work/">work</a>
+    </h1>
+</div>
+                        <div class="main-body-content">
+                            <article id="post-fft原理及fpga实现" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        fft原理及fpga实现
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2020/03/13/fft原理及fpga实现/" class="article-date">
+            <time datetime="2020-03-13T01:47:52.000Z" itemprop="datePublished">2020-03-13</time>
+        </a>
+    </div>
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/work/">work</a>
+    </div>
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p><img src="/2020/03/13/fft原理及fpga实现/0.png" alt></p>
+<h1><span id="1024点fft原理及fpga实现">1024点fft原理及fpga实现</span></h1><p>关于傅里叶变换的原理，可以参考以下的博文：<br><a href="https://www.zhihu.com/question/19714540" target="_blank" rel="noopener">如何理解傅里叶变换公式</a>.</p>
+<p>FFT即快速傅里叶变换，是有限长序列作离散傅里叶变换（DFT）的快速算法。</p>
+<p>DFT公式为<br>$$<br>X[k]=\sum_{n=0}^{N-1}x[n]e^{-j2\pi k\frac{n}{N}} \quad \quad 0\leq n \leq N-1<br>$$<br>令$W_N=e^{\frac{-j2\pi }{N}}$，则$X[k]$重写为<br>$$<br>X[k]=\sum_{n=0}^{N-1}x[n]W_N^{kn}\quad  \quad \quad 0\leq n \leq N-1<br>$$</p>
+<p>从上面的公式可以看出，我们需要计算有限长序列中每个因子与对应的旋转因子$W_N$的乘积，再对求出来的乘积进行求和。</p>
+<h3><span id="1-w_n是什么">1. $W_N$是什么</span></h3><p>我们知道$W_N=e^{\frac{-j2\pi }{N}}$，所以我们先要明白$e^{\frac{-j2\pi }{N}}$的含义。</p>
+<p>由欧拉公式知：对于$\theta\in R$,有$e^{i\theta}=cos\theta+isin\theta$。那么这个公式是如何推出来的，有兴趣的可以参考</p>
+<p><a href="https://www.matongxue.com/madocs/8.html" target="_blank" rel="noopener">如何通俗地解释欧拉公式</a>.</p>
+<p>因此$W_N$实际上就是一个在复平面单位圆上旋转的值，根据kn的不同，$W_N$的值不同，因此我们通俗地解释为旋转因子。</p>
+<h3><span id="2基于时间和基于频率">2.基于时间和基于频率</span></h3><p>在这里就讲讲概念，复杂的推导就不写了。</p>
+<p>由离散傅里叶变换（DFT）的公式可以看出，我们计算DFT序列的每个样本需要进行$N$次复数相乘和$N-1$次复数相加，那么完整的计算DFT所有样本就需要$N^2$次复数相乘和$(N-1)N$次复数相加。当序列长度为N时，可以证明，计算其N点DFT序列需要4$N^2$次实数相乘和$(4N-2)N$次实数相加。</p>
+<p>显然，随着点数增多，DFT的计算量急剧增加，因此，推导快速有效的DFT算法具有很大的实际意义。</p>
+<p>一种方法是使用递归的计算方法，常用的方案是戈泽尔算法。而另一种方法则是用分解的思想将N点DFT的计算依次分解为尺寸较小的DFT计算并利用复数$W_N^{kn}$的周期性和对称性进行计算，这就是我们的快速傅里叶变换算法（FFT）。</p>
+<p>基于时间的FFT是在计算之前，输入序列$x[n]$经过抽取，形成子序列，以奇偶作划分，输出的$X[k]$是按顺序输出。<br><img src="/2020/03/13/fft原理及fpga实现/1.jpg" alt></p>
+<p>基于时间的FFT算法是依次将输入序列$x[n]$分解为越来越小的子序列组，将这种分解的思想应用到DFT序列$X[k]$上，就形成基于频率的FFT算法。因此，输入序列$x[n]$以顺序输入，输出DFT序列以抽取后的形式出现。<br><img src="/2020/03/13/fft原理及fpga实现/2.jpg" alt><br>而如果在每一级以因子$R$进行抽取，则得到的算法称为基$R$快速傅里叶变换算法。常用的为基2和基4算法。</p>
+<h4><span id="基2按时间抽取的fft算法的实现">基2按时间抽取的FFT算法的实现</span></h4><p>明白原理后，我们使用veilog实现1024点基2按时间抽取的FFT算法。</p>
+<h5><span id="1输入序列和每一级">(1).输入序列和每一级</span></h5><p>首先，我们需要准备好输入的序列和每一级计算结果的缓存。注意：<strong>复数的实部和虚部是分开存储的</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">reg signed [23:0] input_data [0:N-1];  //原始输入数据,最高位为符号位</span><br><span class="line"></span><br><span class="line">reg signed [23:0] dft_oridata [0:N-1];  //码位倒置后的输入数据，最高位为符号位</span><br><span class="line"></span><br><span class="line">reg signed [23:0] dft_firoutreal [0:N-1];  //第一级DFT输出数据实部，最高位为符号位</span><br><span class="line">reg signed [23:0] dft_firoutimg [0:N-1];  //第一级DFT输出数据虚部，最高位为符号位</span><br><span class="line"></span><br><span class="line">reg signed [23:0] dft_secoutreal [0:N-1];  //第二级DFT输出数据实部，最高位为符号位</span><br><span class="line">reg signed [23:0] dft_secoutimg [0:N-1];  //第二级DFT输出数据虚部，最高位为符号位</span><br><span class="line"></span><br><span class="line">reg signed [23:0] dft_trdoutreal [0:N-1];  //第三级DFT输出数据实部，最高位为符号位</span><br><span class="line">reg signed [23:0] dft_trdoutimg [0:N-1];  //第三级DFT输出数据虚部，最高位为符号位</span><br><span class="line"></span><br><span class="line">reg signed [23:0] dft_foroutreal [0:N-1];  //第四级DFT输出数据实部，最高位为符号位</span><br><span class="line">reg signed [23:0] dft_foroutimg [0:N-1];  //第四级DFT输出数据虚部，最高位为符号位</span><br><span class="line"></span><br><span class="line">reg signed [23:0] dft_fifoutreal [0:N-1];  //第五级DFT输出数据实部，最高位为符号位</span><br><span class="line">reg signed [23:0] dft_fifoutimg [0:N-1];  //第五级DFT输出数据虚部，最高位为符号位</span><br><span class="line"></span><br><span class="line">reg signed [23:0] dft_sixoutreal [0:N-1];  //第六级DFT输出数据实部，最高位为符号位</span><br><span class="line">reg signed [23:0] dft_sixoutimg [0:N-1];  //第六级DFT输出数据虚部，最高位为符号位</span><br><span class="line"></span><br><span class="line">reg signed [23:0] dft_sevoutreal [0:N-1];  //第七级DFT输出数据实部，最高位为符号位</span><br><span class="line">reg signed [23:0] dft_sevoutimg [0:N-1];  //第七级DFT输出数据虚部，最高位为符号位</span><br><span class="line"></span><br><span class="line">reg signed [23:0] dft_eigoutreal [0:N-1];  //第八级DFT输出数据实部，最高位为符号位</span><br><span class="line">reg signed [23:0] dft_eigoutimg [0:N-1];  //第八级DFT输出数据虚部，最高位为符号位</span><br><span class="line"></span><br><span class="line">reg signed [23:0] dft_ninoutreal [0:N-1];  //第九级DFT输出数据实部，最高位为符号位</span><br><span class="line">reg signed [23:0] dft_ninoutimg [0:N-1];  //第九级DFT输出数据虚部，最高位为符号位</span><br><span class="line"></span><br><span class="line">reg signed [23:0] dft_tenoutreal [0:N-1];  //第十级DFT输出数据实部，最高位为符号位</span><br><span class="line">reg signed [23:0] dft_tenoutimg [0:N-1];  //第十级DFT输出数据虚部，最高位为符号位</span><br></pre></td></tr></table></figure></p>
+<h5><span id="2旋转因子w_nkn">(2).旋转因子$W_N^{kn}$</span></h5><p>在FPGA中直接计算旋转因子是一件比较麻烦的事，因此我们使用MATLAB将旋转因子计算好后，存储在ROM中。如何使用IP核ROM可以参考我之前的博文：<br><a href="https://blog.csdn.net/qq_36854651/article/details/104361000" target="_blank" rel="noopener">vivado三种常用IP核的调用</a>.</p>
+<p>我们已经知道$W_N^{kn}=e^{\frac{-j2\pi kn}{N}}=cos(\frac{-2\pi kn}{N})+jsin(\frac{-2\pi kn}{N})$，k是我们查表的地址，因此最终MATLAB计算旋转因子的代码为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">%fft旋转因子生成表</span><br><span class="line">%w代表返回值,n代表运算点数</span><br><span class="line">%uint8一个字节，uint16两个字节，uint32四个字节，字节数越多，精度越高</span><br><span class="line">%这里将w放大，是因为浮点运算比较消耗时间，因此将其化为整数</span><br><span class="line">function [w]=fftw</span><br><span class="line">clear all;</span><br><span class="line">clc;</span><br><span class="line">n=1024;  %fft点数，根据实际调整</span><br><span class="line">for i=1:n/2</span><br><span class="line">    %w(i)=cos(-2*pi*(i-1)/n);  %正变换用到的旋转因子实部</span><br><span class="line">    w(i)=sin(-2*pi*(i-1)/n);    %正变换用到的旋转因子虚部</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">%for i=1:i-2</span><br><span class="line">%   w(2*i-1)=cos(2*pi*(i-1)/n);  %逆变换用到的旋转因子</span><br><span class="line">%   w(2*i)=sin(2*pi*(i-1)/n);</span><br><span class="line">%end</span><br><span class="line"></span><br><span class="line">w=w*256; %将w放大2^8次倍</span><br><span class="line">w=int16(w);%取整</span><br><span class="line">w(find(w&lt;0))=2^11+w(find(w&lt;0));</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">%fid=fopen(&apos;C:\Users\Leixx\Desktop\fftwn_real.coe&apos;,&apos;wt&apos;);</span><br><span class="line">fid=fopen(&apos;C:\Users\Leixx\Desktop\fftwn_img.coe&apos;,&apos;wt&apos;);</span><br><span class="line">fprintf(fid,&apos;%d,\n&apos;,w);</span><br><span class="line">fclose(fid);</span><br></pre></td></tr></table></figure></p>
+<p>因为我的ADC是10位的无符号数，计算中我会将其扩展为11位，所以这里我将旋转因子设置为11位，最高位为符号位。</p>
+<p>注意：<strong>我将旋转因子扩大了256倍，是因为旋转因子计算出来的值为小数，浮点数运算在FPGA中非常占用资源，因此将其扩为整数方便计算。</strong></p>
+<h5><span id="3码位倒置">(3).码位倒置</span></h5><p>按照前面提到的，输入序列在进行DFT运算前需要进行抽取，而抽取的方式就是码位倒置。码位倒置的原理图如下：<br><img src="/2020/03/13/fft原理及fpga实现/3.jpg" alt><br>码位倒置即将原来的码再按高到底重新排序。verilog实现如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">5&apos;d1:begin                   //装载需要计算的数据       </span><br><span class="line">    #15 input_data[data_cnt] = inputdata_r;</span><br><span class="line">    inputdata_addr = inputdata_addr+1&apos;b1;</span><br><span class="line">    data_cnt = data_cnt+1&apos;b1;</span><br><span class="line">    if(!inputdata_addr) begin </span><br><span class="line">        state &lt;= state+1;</span><br><span class="line">        data_cnt &lt;= 11&apos;d0; </span><br><span class="line">    end </span><br><span class="line">end </span><br><span class="line">5&apos;d2:begin                //码位倒置</span><br><span class="line">    dft_oridata[data_cnt] = input_data[&#123;data_cnt[0],data_cnt[1],data_cnt[2],data_cnt[3],data_cnt[4],data_cnt[5],</span><br><span class="line">                                        data_cnt[6],data_cnt[7],data_cnt[8],data_cnt[9]&#125;];  </span><br><span class="line">    data_cnt = data_cnt+1&apos;b1; </span><br><span class="line">    if(data_cnt==N)begin</span><br><span class="line">        data_cnt &lt;= 0;    </span><br><span class="line">        state &lt;= state+1&apos;b1; </span><br><span class="line">    end   </span><br><span class="line">end</span><br></pre></td></tr></table></figure></p>
+<h5><span id="4蝶形运算">(4).蝶形运算</span></h5><p>前面的fft流图看上去就像是蝴蝶，因此fft运算也称为蝶形运算，下面是最简单的蝶形运算图<br><img src="/2020/03/13/fft原理及fpga实现/4.jpg" alt><br>首先$x_2[k]$乘以对应的旋转因子$W_N^k$，再分别与$x_1[k]$加减。非常简单。</p>
+<p>但需要注意的是，这里的$x_1[k]$，$W_N^k$和$x_2[k]$都是复数，因此需要遵守复数的运算法则：</p>
+<p><strong>加法法则</strong><br>复数的加法按照以下规定的法则进行：设z1=a+bi，z2=c+di是任意两个复数，则它们的和是 (a+bi)+(c+di)=(a+c)+(b+d)i。<br>两个复数的和依然是复数，它的实部是原来两个复数实部的和，它的虚部是原来两个虚部的和。<br>复数的加法满足交换律和结合律，<br>即对任意复数z1，z2，z3，有： z1+z2=z2+z1；(z1+z2)+z3=z1+(z2+z3)。</p>
+<p><strong>减法法则</strong><br>复数的减法按照以下规定的法则进行：设z1=a+bi，z2=c+di是任意两个复数，<br>则它们的差是 (a+bi)-(c+di)=(a-c)+(b-d)i。<br>两个复数的差依然是复数，它的实部是原来两个复数实部的差，它的虚部是原来两个虚部的差。</p>
+<p><strong>乘法法则</strong><br>规定复数的乘法按照以下的法则进行：<br>设z1=a+bi，z2=c+di(a、b、c、d∈R)是任意两个复数，那么它们的积(a+bi)(c+di)=(ac-bd)+(bc+ad)i。<br>其实就是把两个复数相乘，类似两个多项式相乘，展开得: ac+adi+bci+bdi2，因为i2=-1，所以结果是(ac－bd)+(bc+ad)i 。两个复数的积仍然是一个复数。<br>在极坐标下，复数可用模长r与幅角θ表示为(r,θ)。对于复数a+bi,r=√(a²+b²)，θ=arctan(b/a)。此时，复数相乘表现为幅角相加，模长相乘。</p>
+<p><strong>除法法则</strong><br>复数除法定义：满足(c+di)(x+yi)=(a+bi)的复数x+yi(x,y∈R)叫复数a+bi除以复数c+di的商。<br>运算方法：可以把除法换算成乘法做，在分子分母同时乘上分母的共轭.。所谓共轭你可以理解为加减号的变换，互为共轭的两个复数相乘是个实常数。<br>除法运算规则：<br>①设复数a+bi(a，b∈R)，除以c+di(c，d∈R)，其商为x+yi(x，y∈R)，<br>即(a+bi)÷(c+di)=x+yi<br>分母实数化<br>分母实数化<br>∵(x+yi)(c+di)=(cx－dy)+(dx+cy)i<br>∴(cx－dy)+(dx+cy)i=a+bi<br>由复数相等定义可知 cx-dy=a dx+cy=b<br>解这个方程组，得 x=(ac+bd)/(c2+d2) y=(bc-ad)/(c2+d2)<br>于是有:(a+bi)/(c+di)=(ac+bd)/(c2+d2) +((bc-ad)/(c2+d2))i<br>②利用共轭复数将分母实数化得（见右图）：<br>点评：①是常规方法；②是利用初中我们学习的化简无理分式时，都是采用的分母有理化思想方法，而复数c+di与复数c－di，相当于我们初中学习的 的对偶式，它们之积为1是有理数，而(c+di)·(c－di)=c2+d2是正实数.所以可以分母实数化。把这种方法叫做分母实数化法。<br>另外，由上述乘法法则可得另一计算方法，即幅角相减，模长相除。</p>
+<p>在verilog中实现如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">cache_real = dft_firoutreal[data_cnt+cal_stage]*wndatareal[wndatareal_addr]-</span><br><span class="line">             dft_firoutimg[data_cnt+cal_stage]*wndataimg[wndataimg_addr];        //先计算旋转因子，分别计算实部和虚部</span><br><span class="line">cache_img = dft_firoutreal[data_cnt+cal_stage]*wndataimg[wndataimg_addr]+</span><br><span class="line">            dft_firoutimg[data_cnt+cal_stage]*wndatareal[wndatareal_addr];</span><br><span class="line">         </span><br><span class="line">cache_realres[31:0] = (dft_firoutreal[data_cnt]&lt;&lt;8) + cache_real;</span><br><span class="line">cache_imgres[31:0] = (dft_firoutimg[data_cnt]&lt;&lt;8) + cache_img;</span><br><span class="line">dft_secoutreal[data_cnt] = cache_realres[31:8];</span><br><span class="line">dft_secoutimg[data_cnt] = cache_imgres[31:8];</span><br><span class="line"></span><br><span class="line">cache_realres[31:0] = (dft_firoutreal[data_cnt]&lt;&lt;8) - cache_real;</span><br><span class="line">cache_imgres[31:0] = (dft_firoutimg[data_cnt]&lt;&lt;8)-cache_img;</span><br><span class="line">dft_secoutreal[data_cnt+cal_stage] = cache_realres[31:8];</span><br><span class="line">dft_secoutimg[data_cnt+cal_stage] = cache_imgres[31:8];</span><br></pre></td></tr></table></figure></p>
+<p>最上面四行是乘以旋转因子，下面8行则是两个序列值加减。关于代码中的位移操作，请注意：<strong>因为旋转因子扩大了2^8 倍，因此我们在作加减法时也需要将另一个没有乘旋转因子的序列值扩大2^8 倍，在加减完成后，再缩小2^8倍。</strong></p>
+<p>同时，蝶形运算中会出现负数相乘的情况，<strong>一定要保证位宽对齐！</strong></p>
+<h5><span id="5循环">(5).循环</span></h5><p>在上面的代码中，我用到了一个个变量，cal_stage。那么这个变量是干什么的？这里就涉及到了fft流图如何循环的问题。<br><img src="/2020/03/13/fft原理及fpga实现/5.jpg" alt></p>
+<p>上面提到了，fft算法是将DFT序列分解为更小的序列进行计算。第一级DFT运算是N/2点DFT，第二级是N/4点DFT，第三级是N/8点DFT….，并且都是偶序列和奇序列分开计算。</p>
+<p>根据这个原理，我们可以设置两个寄存器fft_stage和cal_stage，一个寄存器记录当前是第几级fft，另一个寄存器记录当前每组做几次蝶形运算。</p>
+<p>以第二级DFT举例。此时是N/4点DFT，共有4组，每组有4个点，每组进行两次蝶形运算，此时fft_stage=2，cal_stage=2。观察图我们发现，进行蝶形运算的两个序列值，中间间隔恰好为cal_stage，这便是加上cal_stage的原因。</p>
+<p>那么旋转因子呢，同样，观察图我们发现，不同级的旋转因子变化和fft_stage紧密相关，旋转因子间隔值是N&gt;&gt;fft_stage的关系。</p>
+<p>每组有两个蝶形运算，我们用wndata_cnt对蝶形运算的个数进行计数。</p>
+<p>偶序列和奇序列都有多个分组，我们还需要用group_cnt对组数进行计数。</p>
+<p>理清这些后，代码就很好写了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line">5&apos;d5:begin                //第二级蝶形运算，N/4点DFT，计算偶数部分</span><br><span class="line">    cache_real = dft_firoutreal[data_cnt+cal_stage]*wndatareal[wndatareal_addr]-</span><br><span class="line">                 dft_firoutimg[data_cnt+cal_stage]*wndataimg[wndataimg_addr];        //先计算旋转因子，分别计算实部和虚部</span><br><span class="line">    cache_img = dft_firoutreal[data_cnt+cal_stage]*wndataimg[wndataimg_addr]+</span><br><span class="line">                dft_firoutimg[data_cnt+cal_stage]*wndatareal[wndatareal_addr];</span><br><span class="line">             </span><br><span class="line">    cache_realres[31:0] = (dft_firoutreal[data_cnt]&lt;&lt;8) + cache_real;</span><br><span class="line">    cache_imgres[31:0] = (dft_firoutimg[data_cnt]&lt;&lt;8) + cache_img;</span><br><span class="line">    dft_secoutreal[data_cnt] = cache_realres[31:8];</span><br><span class="line">    dft_secoutimg[data_cnt] = cache_imgres[31:8];</span><br><span class="line"></span><br><span class="line">    cache_realres[31:0] = (dft_firoutreal[data_cnt]&lt;&lt;8) - cache_real;</span><br><span class="line">    cache_imgres[31:0] = (dft_firoutimg[data_cnt]&lt;&lt;8)-cache_img;</span><br><span class="line">    dft_secoutreal[data_cnt+cal_stage] = cache_realres[31:8];</span><br><span class="line">    dft_secoutimg[data_cnt+cal_stage] = cache_imgres[31:8];                </span><br><span class="line"></span><br><span class="line">    wndatareal_addr = wndatareal_addr+(N&gt;&gt;fft_stage);</span><br><span class="line">    wndataimg_addr = wndataimg_addr+(N&gt;&gt;fft_stage); </span><br><span class="line">    wndata_cnt = wndata_cnt+1;  </span><br><span class="line">    data_cnt = data_cnt+1;</span><br><span class="line"></span><br><span class="line">    if(wndata_cnt==cal_stage)begin           //说明该分组已完成计算，切换到下一个分组</span><br><span class="line">        data_cnt = data_cnt+cal_stage;  </span><br><span class="line">        wndatareal_addr = 0;</span><br><span class="line">        wndataimg_addr = 0; </span><br><span class="line">        wndata_cnt = 0;</span><br><span class="line">        group_cnt = group_cnt+1;        //已计算完一个分组</span><br><span class="line">        if(group_cnt==N&gt;&gt;(fft_stage+1))begin       //说明偶数部分已计算完成</span><br><span class="line">            group_cnt &lt;= 0;</span><br><span class="line">            state &lt;= state+1;</span><br><span class="line">            data_cnt &lt;= N&gt;&gt;1;                        </span><br><span class="line">        end</span><br><span class="line">    end               </span><br><span class="line">end</span><br><span class="line">5&apos;d6:begin                //第二级蝶形运算，N/4点DFT，计算奇数部分</span><br><span class="line">    cache_real = dft_firoutreal[data_cnt+cal_stage]*wndatareal[wndatareal_addr]-</span><br><span class="line">                 dft_firoutimg[data_cnt+cal_stage]*wndataimg[wndataimg_addr];        //先计算旋转因子，分别计算实部和虚部</span><br><span class="line">    cache_img = dft_firoutreal[data_cnt+cal_stage]*wndataimg[wndataimg_addr]+</span><br><span class="line">                dft_firoutimg[data_cnt+cal_stage]*wndatareal[wndatareal_addr];</span><br><span class="line">             </span><br><span class="line">    cache_realres[31:0] = (dft_firoutreal[data_cnt]&lt;&lt;8) + cache_real;</span><br><span class="line">    cache_imgres[31:0] = (dft_firoutimg[data_cnt]&lt;&lt;8) + cache_img;</span><br><span class="line">    dft_secoutreal[data_cnt] = cache_realres[31:8];</span><br><span class="line">    dft_secoutimg[data_cnt] = cache_imgres[31:8];</span><br><span class="line"></span><br><span class="line">    cache_realres[31:0] = (dft_firoutreal[data_cnt]&lt;&lt;8) - cache_real;</span><br><span class="line">    cache_imgres[31:0] = (dft_firoutimg[data_cnt]&lt;&lt;8)-cache_img;</span><br><span class="line">    dft_secoutreal[data_cnt+cal_stage] = cache_realres[31:8];</span><br><span class="line">    dft_secoutimg[data_cnt+cal_stage] = cache_imgres[31:8];                </span><br><span class="line"></span><br><span class="line">    wndatareal_addr = wndatareal_addr+(N&gt;&gt;fft_stage);</span><br><span class="line">    wndataimg_addr = wndataimg_addr+(N&gt;&gt;fft_stage); </span><br><span class="line">    wndata_cnt = wndata_cnt+1;  </span><br><span class="line">    data_cnt = data_cnt+1;</span><br><span class="line"></span><br><span class="line">    if(wndata_cnt==cal_stage)begin           //说明该分组已完成计算，切换到下一个分组</span><br><span class="line">        data_cnt = data_cnt +cal_stage;  </span><br><span class="line">        wndatareal_addr = 0;</span><br><span class="line">        wndataimg_addr = 0; </span><br><span class="line">        wndata_cnt = 0;</span><br><span class="line">        group_cnt = group_cnt+1;        //已计算完一个分组</span><br><span class="line">        if(group_cnt==(N&gt;&gt;(fft_stage+1)))begin       //说明奇数部分已计算完成</span><br><span class="line">            group_cnt &lt;= 0;</span><br><span class="line">            state&lt;= state+1;</span><br><span class="line">            cal_stage &lt;= cal_stage&lt;&lt;1;</span><br><span class="line">            fft_stage &lt;= fft_stage+1;</span><br><span class="line">            data_cnt &lt;= 4&apos;d0;                        </span><br><span class="line">        end</span><br><span class="line">    end                   </span><br><span class="line">end</span><br></pre></td></tr></table></figure></p>
+<p>在上面的代码中，我全部使用了寄存器取代特定的数值，具有很好的移植性，只需要将输入的序列和输出的序列修改，就生成了下一级DFT计算的代码。</p>
+<p>最后一级计算略有不同，因为最后一级是偶序列和奇序列作蝶形运算，因此不用分偶序列和奇序列<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">5&apos;d21:begin                //第十级蝶形运算，N/1024点DFT</span><br><span class="line">    cache_real = dft_ninoutreal[data_cnt+cal_stage]*wndatareal[wndatareal_addr]-</span><br><span class="line">                 dft_ninoutimg[data_cnt+cal_stage]*wndataimg[wndataimg_addr];        //先计算旋转因子，分别计算实部和虚部</span><br><span class="line">    cache_img = dft_ninoutreal[data_cnt+cal_stage]*wndataimg[wndataimg_addr]+</span><br><span class="line">                dft_ninoutimg[data_cnt+cal_stage]*wndatareal[wndatareal_addr];</span><br><span class="line"></span><br><span class="line">    cache_realres[31:0] = (dft_ninoutreal[data_cnt]&lt;&lt;8) + cache_real;</span><br><span class="line">    cache_imgres[31:0] = (dft_ninoutimg[data_cnt]&lt;&lt;8) + cache_img;</span><br><span class="line">    dft_tenoutreal[data_cnt] = cache_realres[31:8];</span><br><span class="line">    dft_tenoutimg[data_cnt] = cache_imgres[31:8];</span><br><span class="line"></span><br><span class="line">    cache_realres[31:0] = (dft_ninoutreal[data_cnt]&lt;&lt;8) - cache_real;</span><br><span class="line">    cache_imgres[31:0] = (dft_ninoutimg[data_cnt]&lt;&lt;8) - cache_img;</span><br><span class="line">    dft_tenoutreal[data_cnt+cal_stage] = cache_realres[31:8];</span><br><span class="line">    dft_tenoutimg[data_cnt+cal_stage] = cache_imgres[31:8];                </span><br><span class="line"></span><br><span class="line">    wndatareal_addr = wndatareal_addr+(N&gt;&gt;fft_stage);</span><br><span class="line">    wndataimg_addr = wndataimg_addr+(N&gt;&gt;fft_stage); </span><br><span class="line">    wndata_cnt = wndata_cnt+1;  </span><br><span class="line">    data_cnt = data_cnt+1;</span><br><span class="line"></span><br><span class="line">    if(wndata_cnt==cal_stage)begin           //说明该分组已完成计算，切换到下一个分组</span><br><span class="line">        data_cnt = data_cnt +cal_stage;  </span><br><span class="line">        wndatareal_addr = 0;</span><br><span class="line">        wndataimg_addr = 0; </span><br><span class="line">        wndata_cnt = 0;</span><br><span class="line">        group_cnt = group_cnt+1;        //已计算完一个分组</span><br><span class="line">        if(group_cnt==(N&gt;&gt;fft_stage))begin       //最后一阶只有一个小组</span><br><span class="line">            group_cnt &lt;= 0;</span><br><span class="line">            state&lt;= state+1;</span><br><span class="line">            cal_stage &lt;= cal_stage&lt;&lt;1;</span><br><span class="line">            data_cnt &lt;= 0;                        </span><br><span class="line">        end</span><br><span class="line">    end                  </span><br><span class="line">end</span><br></pre></td></tr></table></figure></p>
+<h5><span id="验证">验证</span></h5><p> 使用MATLAB生成输入数据，将输入数据存到ROM中读取出来并作FFT运算。<br>MATLAB代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">%=============设置系统参数==============%</span><br><span class="line">f1=1e6;        %设置波形频率</span><br><span class="line">f2=500e3;</span><br><span class="line">f3=800e3;</span><br><span class="line">Fs=20e6;        %设置采样频率</span><br><span class="line">L=8192;         %数据长度</span><br><span class="line">N=11;           %数据位宽</span><br><span class="line">%=============产生输入信号==============%</span><br><span class="line">t=0:1/Fs:(1/Fs)*(L-1);</span><br><span class="line">y1=sin(2*pi*f1*t); </span><br><span class="line">y2=sin(2*pi*f2*t);</span><br><span class="line">y3=sin(2*pi*f3*t);</span><br><span class="line">y4=y1+y2+y3;</span><br><span class="line">y_n=round(y4*(2^(N-3)-1));      %N比特量化;如果有n个信号相加，则设置（N-n）</span><br><span class="line">%=================画图==================%</span><br><span class="line">a=50;           %改变系数可以调整显示周期</span><br><span class="line">stem(t,y_n);</span><br><span class="line">axis([0 L/Fs/a -2^N 2^N]);      %显示</span><br><span class="line">%=============写入外部文件==============%</span><br><span class="line">fid=fopen(&apos;C:\Users\Leixx\Desktop\sin_test.txt&apos;,&apos;w&apos;);    %把数据写入sin_data.txt文件中，如果没有就创建该文件</span><br><span class="line">%fid=fopen(&apos;C:\Users\Leixx\Desktop\input_data.coe&apos;,&apos;wt&apos;);</span><br><span class="line">for k=1:1024</span><br><span class="line">    B_s=dec2bin(y_n(k)+((y_n(k))&lt;0)*2^N,N);</span><br><span class="line">%    fprintf(fid,&apos;%d,&apos;,y_n(k));</span><br><span class="line">    for j=1:N</span><br><span class="line">        if B_s(j)==&apos;1&apos;</span><br><span class="line">            tb=1;</span><br><span class="line">        else</span><br><span class="line">            tb=0;</span><br><span class="line">        end</span><br><span class="line">        fprintf(fid,&apos;%d&apos;,tb);</span><br><span class="line">    end</span><br><span class="line">    fprintf(fid,&apos;,\n&apos;);</span><br><span class="line">end</span><br><span class="line">fprintf(fid,&apos;;&apos;);</span><br><span class="line">fclose(fid);</span><br></pre></td></tr></table></figure></p>
+<p>仿真结果<br><img src="/2020/03/13/fft原理及fpga实现/6.jpg" alt><br>可以发现，存在一些误差，主要是因为旋转因子只扩大了2^8 倍，损失了一些精度。但说明我们的算法基本是正确的。</p>
+<p>以上就是fft原理及fpga实现。</p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+    <div class="bdsharebuttonbox">
+    <a href="#" class="bds_more" data-cmd="more">分享到：</a>
+    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间">QQ空间</a>
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博">新浪微博</a>
+    <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博">腾讯微博</a>
+    <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网">人人网</a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信">微信</a>
+</div>
+<script>
+window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{"bdSize":16}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+<style>
+    .bdshare_popup_box {
+        border-radius: 4px;
+        border: #e1e1e1 solid 1px;
+    }
+    .bdshare-button-style0-16 a,
+    .bdshare-button-style0-16 .bds_more {
+        padding-left: 20px;
+        margin: 6px 10px 6px 0;
+    }
+    .bdshare_dialog_list a,
+    .bdshare_popup_list a,
+    .bdshare_popup_bottom a {
+        font-family: 'Microsoft Yahei';
+    }
+    .bdshare_popup_top {
+        display: none;
+    }
+    .bdshare_popup_bottom {
+        height: auto;
+        padding: 5px;
+    }
+</style>
+
+
+
+        </footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+    </section>
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>关注我 :</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/Leixx98" target="_blank">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="zhihu" href="https://www.zhihu.com/people/lei-xiang-xing" target="_blank">
+                        <i class="icon fa fa-zhihu"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="csdn" href="https://blog.csdn.net/qq_36854651" target="_blank">
+                        <i class="icon fa fa-csdn"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="hupu" href="https://my.hupu.com/169768324091547" target="_blank">
+                        <i class="icon fa fa-hupu"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2020/02/21/DDS原理及FPGA实现/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">上一篇</strong>
+        <p class="article-nav-title">DDS原理及FPGA实现</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">最新文章</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2020/03/13/fft原理及fpga实现/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/2020/03/13/fft原理及fpga实现/0.png)" alt="fft原理及fpga实现" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/work/">work</a></p>
+                            <p class="item-title"><a href="/2020/03/13/fft原理及fpga实现/" class="title">fft原理及fpga实现</a></p>
+                            <p class="item-date"><time datetime="2020-03-13T01:47:52.000Z" itemprop="datePublished">2020-03-13</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2020/02/21/DDS原理及FPGA实现/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/2020/02/21/DDS原理及FPGA实现/0.png)" alt="DDS原理及FPGA实现" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/work/">work</a></p>
+                            <p class="item-title"><a href="/2020/02/21/DDS原理及FPGA实现/" class="title">DDS原理及FPGA实现</a></p>
+                            <p class="item-date"><time datetime="2020-02-21T11:51:20.000Z" itemprop="datePublished">2020-02-21</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2020/02/19/vivadoIP核DDS使用及注意/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/2020/02/19/vivadoIP核DDS使用及注意/0.png)" alt="vivadoIP核DDS使用及注意" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/work/">work</a></p>
+                            <p class="item-title"><a href="/2020/02/19/vivadoIP核DDS使用及注意/" class="title">vivadoIP核DDS使用及注意</a></p>
+                            <p class="item-date"><time datetime="2020-02-19T02:38:24.000Z" itemprop="datePublished">2020-02-19</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2020/02/17/vivado三种常用IP核的调用/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/2020/02/17/vivado三种常用IP核的调用/0.png)" alt="vivado三种常用IP核的调用" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/work/">work</a></p>
+                            <p class="item-title"><a href="/2020/02/17/vivado三种常用IP核的调用/" class="title">vivado三种常用IP核的调用</a></p>
+                            <p class="item-date"><time datetime="2020-02-17T08:54:45.000Z" itemprop="datePublished">2020-02-17</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2020/02/14/简爱/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/2020/02/14/简爱/1.jpg)" alt="简爱" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/life/">life</a></p>
+                            <p class="item-title"><a href="/2020/02/14/简爱/" class="title">简爱</a></p>
+                            <p class="item-date"><time datetime="2020-02-14T07:05:09.000Z" itemprop="datePublished">2020-02-14</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">分类</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/life/">life</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/think/">think</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/work/">work</a><span class="category-list-count">15</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">归档</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">2</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">标签</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/funny/">funny</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/life/">life</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/love/">love</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/think/">think</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work/">work</a><span class="tag-list-count">15</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">标签云</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/Life/" style="font-size: 15px;">Life</a> <a href="/tags/funny/" style="font-size: 10px;">funny</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/life/" style="font-size: 15px;">life</a> <a href="/tags/love/" style="font-size: 12.5px;">love</a> <a href="/tags/think/" style="font-size: 17.5px;">think</a> <a href="/tags/work/" style="font-size: 20px;">work</a>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">链接</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2020 lei xx</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+        
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
